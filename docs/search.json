@@ -1,0 +1,70 @@
+[
+  {
+    "objectID": "info.html",
+    "href": "info.html",
+    "title": "Narzędzia",
+    "section": "",
+    "text": "W terminalu (Windows CMD) wpisz\npython\nJeśli nie odnaleziono komendy uruchom polecenie:\npython3\nZwróć uwagę, aby Twoja wersja nie była niższa niż 3.13 Aby wyjść z powłoki pythona użyj funkcji exit()\nPython 3.13.7 (main, Aug 14 2025, 11:12:11) [Clang 17.0.0 (clang-1700.0.13.3)] on darwin\nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\n&gt;&gt;&gt; exit()\n\n\npython3 -m venv venv\nUruchomienie w systemach linux i mac os:\nsource venv/bin/activate\n# . venv/bin/activate\n\n(venv)$ ~\nW systemie windows środowisko pythona uruchomisz poprzez:\nvenv/Scripts/activate\nSzybka instalacja podstawowych bibliotek i jupyterlab.\npip install --no-cache --upgrade pip setuptools\n\npip install jupyterlab numpy pandas matplotlib scipy\n# jeśli masz plik requirements.txt z potrzebnymi bibliotekami\npip install -r requirements.txt\n# uruchom \njupyterlab\nW przeglądarce internetowej wpisz: localhost:8888\nPo ponownym uruchomieniu przejdź do katalogu w którym utworzyłeś środowisko, następnie uruchom środowisko i jupyterlab.\nsource &lt;name of env&gt;/bin/activate\njupyterlab\n\n\n\nKurs podstaw pythona Tomas Beuzen polecam.\nUtwórz konto na Kaggle, przejdź do zakładki Courses i przerób cały moduł Pythona. Zawiera on:\n\nwyrażenia i zmienne\nfunkcje\nwarunki i flow programu\nlisty\npętle\nstringi i słowniki\ndodawanie i używanie zewnętrznych bibliotek"
+  },
+  {
+    "objectID": "info.html#python",
+    "href": "info.html#python",
+    "title": "Narzędzia",
+    "section": "",
+    "text": "W terminalu (Windows CMD) wpisz\npython\nJeśli nie odnaleziono komendy uruchom polecenie:\npython3\nZwróć uwagę, aby Twoja wersja nie była niższa niż 3.13 Aby wyjść z powłoki pythona użyj funkcji exit()\nPython 3.13.7 (main, Aug 14 2025, 11:12:11) [Clang 17.0.0 (clang-1700.0.13.3)] on darwin\nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\n&gt;&gt;&gt; exit()\n\n\npython3 -m venv venv\nUruchomienie w systemach linux i mac os:\nsource venv/bin/activate\n# . venv/bin/activate\n\n(venv)$ ~\nW systemie windows środowisko pythona uruchomisz poprzez:\nvenv/Scripts/activate\nSzybka instalacja podstawowych bibliotek i jupyterlab.\npip install --no-cache --upgrade pip setuptools\n\npip install jupyterlab numpy pandas matplotlib scipy\n# jeśli masz plik requirements.txt z potrzebnymi bibliotekami\npip install -r requirements.txt\n# uruchom \njupyterlab\nW przeglądarce internetowej wpisz: localhost:8888\nPo ponownym uruchomieniu przejdź do katalogu w którym utworzyłeś środowisko, następnie uruchom środowisko i jupyterlab.\nsource &lt;name of env&gt;/bin/activate\njupyterlab\n\n\n\nKurs podstaw pythona Tomas Beuzen polecam.\nUtwórz konto na Kaggle, przejdź do zakładki Courses i przerób cały moduł Pythona. Zawiera on:\n\nwyrażenia i zmienne\nfunkcje\nwarunki i flow programu\nlisty\npętle\nstringi i słowniki\ndodawanie i używanie zewnętrznych bibliotek"
+  },
+  {
+    "objectID": "ksiazki.html",
+    "href": "ksiazki.html",
+    "title": "Książki i strony WWW",
+    "section": "",
+    "text": "Chris Bernhardt, Obliczenia kwantowe dla każdego. PWN 2020\n\n\nWyjaśnienie jak to działa w obliczeniach kwantowych.\n\n\nMichel Le Bellac, Wstęp do informatyki kwantowej. PWN 2011\n\n\nTrudniejsza, dużo matematyki i fizyki.\n\n\nThomas G. Wong, Introduction to Classical and Quantum Computing. Rooted Grove 2022.\n\n\nBardzo dobra!, dużo przykładów, dużo ciekawych informacji wyjaśnianych bardzo szczegółowo.\n\n\nA. Jacquier, O. Kondratyev, Quantum Machine Learning and Optimisation in Finance. On the Road to Quantum Advantage.\nP. Gawron, M. Cholewa, … Rewolucja stanu. Fantastyczne wprowadzenie do informatyki kwantowej. Quantumz.io 2021\nA. Saxena, J. Mancilla, I. Montalban, C. Pere, Financial Modeling Using Quantum Computing. Packt 2023\nM. Schuld, F. Petruccione, Machine Learning with Quantum Computers, Springer 2021.\n\n\n\n\n\n\n\nL. Moroney, Sztuczna inteligencja i uczenie maszynowe dla programistów. Praktyczny przewodnik po sztucznej inteligencji. Helion 2021. Zobacz opis lub Kup e-book\nBruce, Bruce, Gedeck, Statystyka praktyczna w data science. Wydanie II. Helion. 2021."
+  },
+  {
+    "objectID": "ksiazki.html#książki",
+    "href": "ksiazki.html#książki",
+    "title": "Książki i strony WWW",
+    "section": "",
+    "text": "Chris Bernhardt, Obliczenia kwantowe dla każdego. PWN 2020\n\n\nWyjaśnienie jak to działa w obliczeniach kwantowych.\n\n\nMichel Le Bellac, Wstęp do informatyki kwantowej. PWN 2011\n\n\nTrudniejsza, dużo matematyki i fizyki.\n\n\nThomas G. Wong, Introduction to Classical and Quantum Computing. Rooted Grove 2022.\n\n\nBardzo dobra!, dużo przykładów, dużo ciekawych informacji wyjaśnianych bardzo szczegółowo.\n\n\nA. Jacquier, O. Kondratyev, Quantum Machine Learning and Optimisation in Finance. On the Road to Quantum Advantage.\nP. Gawron, M. Cholewa, … Rewolucja stanu. Fantastyczne wprowadzenie do informatyki kwantowej. Quantumz.io 2021\nA. Saxena, J. Mancilla, I. Montalban, C. Pere, Financial Modeling Using Quantum Computing. Packt 2023\nM. Schuld, F. Petruccione, Machine Learning with Quantum Computers, Springer 2021.\n\n\n\n\n\n\n\nL. Moroney, Sztuczna inteligencja i uczenie maszynowe dla programistów. Praktyczny przewodnik po sztucznej inteligencji. Helion 2021. Zobacz opis lub Kup e-book\nBruce, Bruce, Gedeck, Statystyka praktyczna w data science. Wydanie II. Helion. 2021."
+  },
+  {
+    "objectID": "ksiazki.html#strony-www",
+    "href": "ksiazki.html#strony-www",
+    "title": "Książki i strony WWW",
+    "section": "Strony WWW",
+    "text": "Strony WWW\n\nPeter Shor Wykład\n\n\nPakiety Python\n\nQiskit\nPennyLane\n\n\n\nPakiety Julia\n\nYao\nQAOA\n\n\n\nEdytory tekstu\n\nNotepad++\nSublime Text\nVisual Studio Code\n\n\n\nMarkdown\n\nMD\n\n\n\nFilmy\n\nWprowadzenie do obliczeń kwantowych\nQPoland, Bronze, Warsztaty z programowania komputerów kwantowych 2023"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Informacje ogólne",
+    "section": "",
+    "text": "Kod:\nSemestr: letni\nPodstawowe informacje znajdziesz w sylabusie.\nCiekawe książki i strony internetowe zamieszczone zostały w zakładce książki. Jeśli chciał(a)byś coś dodać prześlij informacje przez MS teams.",
+    "crumbs": [
+      "Książki",
+      "Informacje ogólne"
+    ]
+  },
+  {
+    "objectID": "index.html#relacyjne-systemy-organizacji-danych",
+    "href": "index.html#relacyjne-systemy-organizacji-danych",
+    "title": "Informacje ogólne",
+    "section": "",
+    "text": "Kod:\nSemestr: letni\nPodstawowe informacje znajdziesz w sylabusie.\nCiekawe książki i strony internetowe zamieszczone zostały w zakładce książki. Jeśli chciał(a)byś coś dodać prześlij informacje przez MS teams.",
+    "crumbs": [
+      "Książki",
+      "Informacje ogólne"
+    ]
+  },
+  {
+    "objectID": "index.html#kalendarz",
+    "href": "index.html#kalendarz",
+    "title": "Informacje ogólne",
+    "section": "Kalendarz",
+    "text": "Kalendarz\n\nWykład dla grup: WEL23EV1S0, WEL23EA1S0\n\n09.10.2025 Czwartek Wykład 1 - b. 61 sala 116 (3-4)\n14.10.2025 Wtorek Wykład 2 - b. 61 sala 116 (9-10)\n15.10.2025 Środa Wykład 3 - b. 61 sala 116 (3-4)\n29.10.2025 Środa Wykład 4 - b. 61 sala 116 (9-10)\n30.10.2025 Czwartek Wykład 5 - b. 61 sala 116 (5-6)\n\n\n\nLaboratorium grupa WEL23EV1S0:\n\n13.11.2025 Czwartek Lab - b. 61 sala 116\n\n\n\nLaboratorium grupa WEL23EA1S0:",
+    "crumbs": [
+      "Książki",
+      "Informacje ogólne"
+    ]
+  }
+]
