@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Narzędzia – Relacyjne Systemy Organizacji Danych</title>
+<title>plan – Projektowanie Relacyjnych Baz Danych</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,61 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-d329e753491efaeac79c98c4b193a686.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-5b6232578699c41ebed293775b607817.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-d329e753491efaeac79c98c4b193a686.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-5b6232578699c41ebed293775b607817.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -104,7 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../style.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -114,8 +79,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Relacyjne Systemy Organizacji Danych</span>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Projektowanie Relacyjnych Baz Danych</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -125,7 +90,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./ksiazki.html"> 
+    <a class="nav-link" href="../ksiazki.html"> 
 <span class="menu-text">Książki</span></a>
   </li>  
 </ul>
@@ -139,7 +104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Narzędzia</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -153,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Informacje ogólne</span></a>
   </div>
 </li>
@@ -168,102 +133,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/wyklad1.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/wyklad1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Wprowadzenie do relacyjnych baz danych</span></a>
   </div>
 </li>
       </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Ćwiczenia</span></span>
   </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title"><strong>Sections</strong></h2>
-   
-  <ul class="collapse">
-  <li><a href="#python" id="toc-python" class="nav-link active" data-scroll-target="#python">Python</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Narzędzia</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="python" class="level2">
-<h2 class="anchored" data-anchor-id="python">Python</h2>
-<p>W terminalu (Windows CMD) wpisz</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Jeśli nie odnaleziono komendy uruchom polecenie:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Zwróć uwagę, aby Twoja wersja nie była niższa niż 3.13 Aby wyjść z powłoki pythona użyj funkcji <code>exit()</code></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Python</span> 3.13.7 <span class="er">(</span><span class="ex">main,</span> Aug 14 2025, 11:12:11<span class="kw">)</span> <span class="ex">[Clang</span> 17.0.0 <span class="er">(</span><span class="ex">clang-1700.0.13.3</span><span class="kw">)</span><span class="ex">]</span> on darwin</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Type</span> <span class="st">"help"</span>, <span class="st">"copyright"</span>, <span class="st">"credits"</span> or <span class="st">"license"</span> for more information.</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> exit<span class="kw">()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="nowe-środowisko-pythona" class="level3">
-<h3 class="anchored" data-anchor-id="nowe-środowisko-pythona">Nowe środowisko pythona</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> venv venv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Uruchomienie w systemach linux i mac os:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> venv/bin/activate</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># . venv/bin/activate</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">venv</span><span class="kw">)</span><span class="ex">$</span> ~</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>W systemie windows środowisko pythona uruchomisz poprzez:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">venv/Scripts/activate</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Szybka instalacja podstawowych bibliotek i jupyterlab.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">--no-cache</span> <span class="at">--upgrade</span> pip setuptools</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install jupyterlab numpy pandas matplotlib scipy</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># jeśli masz plik requirements.txt z potrzebnymi bibliotekami</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># uruchom </span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyterlab</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>W przeglądarce internetowej wpisz: <em>localhost:8888</em></p>
-<p>Po ponownym uruchomieniu przejdź do katalogu w którym utworzyłeś środowisko, następnie uruchom środowisko i jupyterlab.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> <span class="op">&lt;</span>name of env<span class="op">&gt;</span>/bin/activate</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyterlab</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="naucz-się-pythona-w-2-godziny" class="level3">
-<h3 class="anchored" data-anchor-id="naucz-się-pythona-w-2-godziny">Naucz się Pythona w 2 godziny</h3>
-<p>Kurs podstaw pythona <a href="https://www.tomasbeuzen.com/python-programming-for-data-science/README.html">Tomas Beuzen</a> polecam.</p>
-<p>Utwórz konto na <a href="https://kaggle.com">Kaggle</a>, przejdź do zakładki <code>Courses</code> i przerób cały moduł Pythona. Zawiera on:</p>
-<ul>
-<li>wyrażenia i zmienne</li>
-<li>funkcje</li>
-<li>warunki i flow programu</li>
-<li>listy</li>
-<li>pętle</li>
-<li>stringi i słowniki</li>
-<li>dodawanie i używanie zewnętrznych bibliotek</li>
-</ul>
+<p>Wykład 1: Wprowadzenie do baz danych i model relacyjny • Historia i ewolucja baz danych • Podstawowe pojęcia: dane, informacja, baza danych, DBMS • Architektura systemów baz danych (ANSI/SPARC, poziomy abstrakcji) • Model relacyjny: relacje, krotki, atrybuty, domeny • Klucze (główny, obcy, kandydujące) i integralność danych</p>
+<p>⸻</p>
+<p>Wykład 2: Projektowanie koncepcyjne – model ER (Entity-Relationship) • Analiza wymagań użytkownika • Diagramy encja-związek (ERD): encje, atrybuty, związki • Typy związków: 1:1, 1:N, N:M • Atrybuty proste, złożone, wielowartościowe • Ćwiczenia: tworzenie ERD dla prostego systemu</p>
+<p>⸻</p>
+<p>Wykład 3: Od modelu ER do modelu relacyjnego • Reguły transformacji ERD na schemat relacyjny • Mapowanie encji i związków • Schemat relacyjny – projektowanie tabel • Ćwiczenia: przejście od ERD do relacji</p>
+<p>⸻</p>
+<p>Wykład 4: Normalizacja baz danych • Redundancja i anomalia danych (wstawiania, modyfikacji, usuwania) • Klucze funkcyjne i zależności funkcyjne • Postacie normalne: 1NF, 2NF, 3NF, BCNF • Przykłady normalizacji i denormalizacji</p>
+<p>⸻</p>
+<p>Wykład 5: Wprowadzenie do SQL – definicja danych (DDL) • Podstawowe elementy składni SQL • Tworzenie baz danych i tabel (CREATE DATABASE, CREATE TABLE) • Typy danych w SQL • Ograniczenia integralności (PRIMARY KEY, FOREIGN KEY, UNIQUE, CHECK, NOT NULL) • Modyfikacja schematu (ALTER TABLE, DROP TABLE)</p>
+<p>⸻</p>
+<p>Wykład 6: SQL – manipulacja danymi (DML) • Wstawianie danych (INSERT) • Aktualizacja i usuwanie danych (UPDATE, DELETE) • Podstawowe zapytania (SELECT, FROM, WHERE) • Operatory logiczne i porównania • Operacje na zbiorach (UNION, INTERSECT, EXCEPT)</p>
+<p>⸻</p>
+<p>Wykład 7: SQL – zapytania złożone i funkcje • Łączenia tabel (JOIN: INNER, LEFT, RIGHT, FULL) • Funkcje agregujące (COUNT, SUM, AVG, MIN, MAX) • Grupowanie i filtrowanie grup (GROUP BY, HAVING) • Podzapytania (subqueries) • Krótki wstęp do indeksów i wydajności zapytań</p>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -338,7 +242,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/sebkaz-teaching\.github\.io\/rsod");
+        var filterRegex = new RegExp("https:\/\/sebkaz-teaching\.github\.io\/prba");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

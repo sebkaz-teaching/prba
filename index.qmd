@@ -6,26 +6,16 @@ title: "Informacje ogólne"
 
 Kod: 
 
-Semestr: letni
-
-Podstawowe informacje znajdziesz w [sylabusie](/sylabus).
-
-Ciekawe książki i strony internetowe zamieszczone zostały w zakładce [książki](/ksiazki). 
-Jeśli chciał(a)byś coś dodać prześlij informacje przez MS teams.
+Semestr: zimowy
 
 ## Kalendarz
 
-### Wykład dla grup: WEL23EV1S0, WEL23EA1S0
+### Wykład WEL21EA1S0:
 
-1. 
-
-
-### Laboratorium grupa WEL23EV1S0: 
-
-1. 
-
-
-
-### Laboratorium grupa WEL23EA1S0:
-
-1. 
+1. 02.10.2025 Czwartek     8.00 - 9.30. b 61 s 104
+2. 06.10.2025 Poniedziałek 8.00 - 9.30. b 61 s 104
+3. 09.10.2025 Czwartek     8.00 - 9.30. b 61 s 104
+4. 16.10.2025 Czwartek     8.00 - 9.30. b 61 s 104
+5. 20.10.2025 Poniedziałek 9.50 - 11.25 b 61 s 104
+6. 27.10.2025 Poniedziałek 9.50 - 11.25 b 61 s 104
+7. 30.10.2025 Czwartek     8.00 - 9.30. b 61 s 104

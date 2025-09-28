@@ -1,0 +1,58 @@
+Wykład 1: Wprowadzenie do baz danych i model relacyjny
+	•	Historia i ewolucja baz danych
+	•	Podstawowe pojęcia: dane, informacja, baza danych, DBMS
+	•	Architektura systemów baz danych (ANSI/SPARC, poziomy abstrakcji)
+	•	Model relacyjny: relacje, krotki, atrybuty, domeny
+	•	Klucze (główny, obcy, kandydujące) i integralność danych
+
+⸻
+
+Wykład 2: Projektowanie koncepcyjne – model ER (Entity-Relationship)
+	•	Analiza wymagań użytkownika
+	•	Diagramy encja-związek (ERD): encje, atrybuty, związki
+	•	Typy związków: 1:1, 1:N, N:M
+	•	Atrybuty proste, złożone, wielowartościowe
+	•	Ćwiczenia: tworzenie ERD dla prostego systemu
+
+⸻
+
+Wykład 3: Od modelu ER do modelu relacyjnego
+	•	Reguły transformacji ERD na schemat relacyjny
+	•	Mapowanie encji i związków
+	•	Schemat relacyjny – projektowanie tabel
+	•	Ćwiczenia: przejście od ERD do relacji
+
+⸻
+
+Wykład 4: Normalizacja baz danych
+	•	Redundancja i anomalia danych (wstawiania, modyfikacji, usuwania)
+	•	Klucze funkcyjne i zależności funkcyjne
+	•	Postacie normalne: 1NF, 2NF, 3NF, BCNF
+	•	Przykłady normalizacji i denormalizacji
+
+⸻
+
+Wykład 5: Wprowadzenie do SQL – definicja danych (DDL)
+	•	Podstawowe elementy składni SQL
+	•	Tworzenie baz danych i tabel (CREATE DATABASE, CREATE TABLE)
+	•	Typy danych w SQL
+	•	Ograniczenia integralności (PRIMARY KEY, FOREIGN KEY, UNIQUE, CHECK, NOT NULL)
+	•	Modyfikacja schematu (ALTER TABLE, DROP TABLE)
+
+⸻
+
+Wykład 6: SQL – manipulacja danymi (DML)
+	•	Wstawianie danych (INSERT)
+	•	Aktualizacja i usuwanie danych (UPDATE, DELETE)
+	•	Podstawowe zapytania (SELECT, FROM, WHERE)
+	•	Operatory logiczne i porównania
+	•	Operacje na zbiorach (UNION, INTERSECT, EXCEPT)
+
+⸻
+
+Wykład 7: SQL – zapytania złożone i funkcje
+	•	Łączenia tabel (JOIN: INNER, LEFT, RIGHT, FULL)
+	•	Funkcje agregujące (COUNT, SUM, AVG, MIN, MAX)
+	•	Grupowanie i filtrowanie grup (GROUP BY, HAVING)
+	•	Podzapytania (subqueries)
+	•	Krótki wstęp do indeksów i wydajności zapytań

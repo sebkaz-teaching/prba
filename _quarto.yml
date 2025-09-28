@@ -16,8 +16,11 @@ website:
           # - lectures/wyklad2.qmd
           # - lectures/wyklad3.qmd
           # - lectures/wyklad4.qmd
-      - section: "Ćwiczenia"
-        contents:
+          # - lectures/wyklad5.qmd
+          # - lectures/wyklad6.qmd
+          # - lectures/wyklad7.qmd
+      # - section: "Ćwiczenia"
+      #   contents:
           # - cwiczenia/cw1.ipynb
           # - cwiczenia/cw2.ipynb
           # - cwiczenia/cw3.ipynb
