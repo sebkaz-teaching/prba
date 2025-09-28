@@ -3,9 +3,9 @@ project:
   output-dir: docs
 
 website: 
-  title: Relacyjne Systemy Organizacji Danych
-  description: "Relacyjne Systemy Organizacji Danych dla studentów WAT w Warszawie"
-  site-url: https://sebkaz-teaching.github.io/rsod
+  title: Projektowanie Relacyjnych Baz Danych
+  description: "Projektowanie Relacyjnych Baz Danych dla studentów WAT w Warszawie"
+  site-url: https://sebkaz-teaching.github.io/prba
   sidebar:
     style: "docked" 
     contents:
