@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Wprowadzenie do relacyjnych baz danych – Projektowanie Relacyjnych Baz Danych</title>
+<title>Projektowanie koncepcyjne – model ER (Entity-Relationship) – Projektowanie Relacyjnych Baz Danych</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -104,7 +104,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/wyklad1.html">Wykłady</a></li><li class="breadcrumb-item"><a href="../lectures/wyklad1.html">Wprowadzenie do relacyjnych baz danych</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Projektowanie koncepcyjne – model ER (Entity-Relationship)</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -133,7 +133,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/wyklad1.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lectures/wyklad1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Wprowadzenie do relacyjnych baz danych</span></a>
   </div>
 </li>
@@ -149,21 +149,21 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title"><strong>Sections</strong></h2>
    
   <ul class="collapse">
-  <li><a href="#plan-wykładu" id="toc-plan-wykładu" class="nav-link active" data-scroll-target="#plan-wykładu">Plan wykładu</a></li>
-  <li><a href="#historia-i-ewolucja-baz-danych" id="toc-historia-i-ewolucja-baz-danych" class="nav-link" data-scroll-target="#historia-i-ewolucja-baz-danych">Historia i ewolucja baz danych</a></li>
-  <li><a href="#dane-informacja-baza-danych-dbms" id="toc-dane-informacja-baza-danych-dbms" class="nav-link" data-scroll-target="#dane-informacja-baza-danych-dbms">Dane, informacja, baza danych, DBMS</a></li>
-  <li><a href="#architektura-systemów-baz-danych" id="toc-architektura-systemów-baz-danych" class="nav-link" data-scroll-target="#architektura-systemów-baz-danych">Architektura systemów baz danych</a></li>
-  <li><a href="#model-relacyjny-relacje-krotki-atrybuty-domeny" id="toc-model-relacyjny-relacje-krotki-atrybuty-domeny" class="nav-link" data-scroll-target="#model-relacyjny-relacje-krotki-atrybuty-domeny">Model relacyjny: relacje, krotki, atrybuty, domeny</a></li>
-  <li><a href="#klucze-i-integralność-danych" id="toc-klucze-i-integralność-danych" class="nav-link" data-scroll-target="#klucze-i-integralność-danych">Klucze i integralność danych</a></li>
+  <li><a href="#analiza-wymagań-użytkownika" id="toc-analiza-wymagań-użytkownika" class="nav-link active" data-scroll-target="#analiza-wymagań-użytkownika">Analiza wymagań użytkownika</a></li>
+  <li><a href="#diagramy-encjazwiązek" id="toc-diagramy-encjazwiązek" class="nav-link" data-scroll-target="#diagramy-encjazwiązek">Diagramy encja–związek</a></li>
+  <li><a href="#typy-związków" id="toc-typy-związków" class="nav-link" data-scroll-target="#typy-związków">Typy związków</a></li>
+  <li><a href="#atrybuty-proste-złożone-wielowartościowe" id="toc-atrybuty-proste-złożone-wielowartościowe" class="nav-link" data-scroll-target="#atrybuty-proste-złożone-wielowartościowe">Atrybuty proste, złożone, wielowartościowe</a></li>
+  <li><a href="#przykłady-całościowe" id="toc-przykłady-całościowe" class="nav-link" data-scroll-target="#przykłady-całościowe">Przykłady całościowe</a></li>
+  <li><a href="#podsumowanie" id="toc-podsumowanie" class="nav-link" data-scroll-target="#podsumowanie">Podsumowanie</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/wyklad1.html">Wykłady</a></li><li class="breadcrumb-item"><a href="../lectures/wyklad1.html">Wprowadzenie do relacyjnych baz danych</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Wprowadzenie do relacyjnych baz danych</h1>
+<h1 class="title">Projektowanie koncepcyjne – model ER (Entity-Relationship)</h1>
 </div>
 
 
@@ -180,253 +180,54 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="plan-wykładu" class="level2">
-<h2 class="anchored" data-anchor-id="plan-wykładu">Plan wykładu</h2>
-<ul>
-<li>Historia i ewolucja baz danych</li>
-<li>Podstawowe pojęcia: dane, informacja, baza danych, DBMS</li>
-<li>Architektura systemów baz danych (ANSI/SPARC, poziomy abstrakcji)</li>
-<li>Model relacyjny: relacje, krotki, atrybuty, domeny</li>
-<li>Klucze (główny, obcy, kandydujące) i integralność danych</li>
-</ul>
+<section id="analiza-wymagań-użytkownika" class="level2">
+<h2 class="anchored" data-anchor-id="analiza-wymagań-użytkownika">Analiza wymagań użytkownika</h2>
+<p>Każdy projekt bazy danych zaczyna się od zrozumienia czego oczekuje użytkownik. Bez tego łatwo stworzyć system, który jest poprawny technicznie, ale bezużyteczny w praktyce.</p>
+<p>Przykład 1 – biblioteka Biblioteka chce mieć system, który przechowuje dane o: • książkach (tytuł, autor, rok wydania, ISBN), • czytelnikach (imię, nazwisko, numer karty bibliotecznej), • wypożyczeniach (jaka książka, który czytelnik, kiedy wypożyczona i kiedy oddana).</p>
+<p>Przykład 2 – sklep internetowy Sklep potrzebuje informacji o: • klientach (imię, adres, e-mail), • produktach (nazwa, cena, kategoria), • zamówieniach (który klient, jakie produkty, kiedy złożono, status zamówienia).</p>
+<p>👉 Zwróć uwagę: • w bibliotece najważniejszy jest związek wypożyczeń, • w sklepie – związek zamówień.</p>
+<p>Już na tym etapie widać, że kluczowe są powiązania, a nie tylko same dane.</p>
 </section>
-<section id="historia-i-ewolucja-baz-danych" class="level2">
-<h2 class="anchored" data-anchor-id="historia-i-ewolucja-baz-danych">Historia i ewolucja baz danych</h2>
-<p><strong>Bazy danych</strong> to nie jest wynalazek XXI wieku – ich historia sięga lat 60. XX wieku, kiedy pojawiła się potrzeba lepszego przechowywania i zarządzania coraz większą ilością informacji w firmach i instytucjach.</p>
-<p>Na początku istniały <strong>systemy plikowe</strong>, które pozwalały na zapisywanie danych w prostych plikach na dyskach.</p>
-<blockquote class="blockquote">
-<p>Zadanie: Na jakich obiektach, oprócz plików, mozna pracować w systemach operacyjnych?</p>
-</blockquote>
-<p>Jednak te systemy miały wiele ograniczeń:</p>
-<ul>
-<li>Brak centralnej kontroli nad danymi – różne aplikacje musiały same zarządzać tymi samymi danymi.</li>
-<li>Trudność w utrzymaniu spójności danych – łatwo było wprowadzić błędy, np. zmienić dane w jednym pliku, a zapomnieć w drugim.</li>
-<li>Ograniczone możliwości wyszukiwania i przetwarzania danych – każde zapytanie wymagało pisania własnych procedur do przeszukiwania plików.</li>
-</ul>
-<p>W odpowiedzi na te problemy, w latach 60. i 70. zaczęły powstawać <strong>systemy zarządzania bazami danych</strong> (DBMS – Database Management Systems).</p>
-<p>DBMS to specjalne oprogramowanie, które pozwala <strong>przechowywać dane w sposób uporządkowany</strong>, zapewniając:</p>
-<ul>
-<li>Centralną kontrolę nad danymi – wszystkie aplikacje korzystają z jednej, spójnej bazy.</li>
-<li>Integralność danych – DBMS pilnuje, żeby dane były poprawne i spójne.</li>
-<li>Wydajne wyszukiwanie i przetwarzanie – gotowe mechanizmy indeksowania i optymalizacji zapytań.</li>
-</ul>
-<p>Wczesne DBMS były hierarchiczne i sieciowe, co oznaczało, że dane były przechowywane w strukturach przypominających drzewo lub graf.</p>
-<p>Takie podejście było skuteczne w pewnych zastosowaniach, ale było trudne w rozbudowie i modyfikacji.</p>
-<p>Przełom nastąpił w latach 70., kiedy <strong>dr Edgar F. Codd</strong> zaproponował <strong>model relacyjny danych</strong>.</p>
-<p>W modelu relacyjnym wszystkie dane są przechowywane w tabelach (<strong>relacjach</strong>), które mają określone <code>kolumny**</code> <strong>(atrybuty)</strong> i <code>wiersze</code> <strong>(rekordy, krotki)</strong>.</p>
-<p>Zaletą tego podejścia jest:</p>
-<ul>
-<li>Prostota i przejrzystość – dane są zorganizowane w logiczny sposób, łatwe do zrozumienia.</li>
-<li>Elastyczność – nowe tabele można dodawać bez reorganizacji całej bazy.</li>
-<li>Bezpieczeństwo i spójność – DBMS może wymuszać reguły integralności danych.</li>
-</ul>
-<p>Od tego czasu systemy relacyjne stały się standardem w branży, a <strong>język SQL</strong> (Structured Query Language), opracowany w latach 70. i 80., pozwala na łatwe tworzenie, modyfikowanie i pobieranie danych w bazach relacyjnych.</p>
-<p>SQL jest najczęściej stosowanym językiem związanym z bazami danych. Niezależnie od tego, czy zajmujesz się programowaniem, tworzeniem stron WWW, administracją baz danych, tworzeniem aplikacji mobilnych czy po prostu często korzystasz z pewnych funkcji pakietów biurowych, dobra znajomość tego języka może pomóc Ci w wydajnym wykorzystaniu baz danych.</p>
-<p>Dzisiaj bazy danych są wszędzie – w bankach, sklepach internetowych, aplikacjach mobilnych, serwisach społecznościowych. Choć pojawiają się też nowe podejścia, takie jak bazy NoSQL czy grafowe, model relacyjny pozostaje fundamentem większości systemów baz danych na świecie.</p>
+<section id="diagramy-encjazwiązek" class="level2">
+<h2 class="anchored" data-anchor-id="diagramy-encjazwiązek">Diagramy encja–związek</h2>
+<p>Model ERD (Entity–Relationship Diagram) pozwala w przejrzysty sposób przedstawić jakie obiekty istnieją w systemie i jak są ze sobą powiązane. - Encje rysujemy jako prostokąty. - Przykład: „Student”, „Książka”, „Zamówienie”. - Atrybuty zapisujemy jako elipsy i łączymy z encją. - „Student” → Imię, Nazwisko, NrIndeksu. - Związki przedstawiamy jako romby. - „Student” ––&gt; „Wypożycza” ––&gt; „Książka”.</p>
+<p>Przykład wizualny do opowiedzenia: - Wyobraźcie sobie trzy prostokąty: „Student”, „Książka” i „Bibliotekarz”. - Łączymy je rombem „Wypożycza”. - Dodajemy atrybuty: do studenta „NrIndeksu”, do książki „ISBN”, a do związku „Data wypożyczenia”.</p>
+<p>👉 Dzięki temu widzimy nie tylko obiekty, ale i relacje między nimi.</p>
+<p>⸻</p>
 </section>
-<section id="dane-informacja-baza-danych-dbms" class="level2">
-<h2 class="anchored" data-anchor-id="dane-informacja-baza-danych-dbms">Dane, informacja, baza danych, DBMS</h2>
-<p>Zanim zagłębimy się w projektowanie i SQL, warto zrozumieć kilka podstawowych pojęć, które są fundamentem całej dziedziny baz danych.</p>
-<ol type="1">
-<li>Dane vs.&nbsp;Informacja</li>
-</ol>
-<p>Często słowa „dane” i „informacja” są używane zamiennie, ale w kontekście baz danych mają różne znaczenie:</p>
-<ul>
-<li>Dane to surowe fakty, liczby, teksty, pomiary – same w sobie nie mówią nam wiele. Na przykład: liczba „25”, tekst „Warszawa” czy kod „12345” to dane.</li>
-<li>Informacja to przetworzone dane, które mają znaczenie i mogą być użyteczne w podejmowaniu decyzji. Na przykład: „25 klientów w Warszawie dokonało zakupów w ciągu ostatniego tygodnia” – to informacja, bo dane zostały zorganizowane i nadano im kontekst.</li>
-</ul>
-<p>Możemy więc powiedzieć, że dane to surowy materiał, a informacja to efekt jego przetworzenia i interpretacji.</p>
-<ol start="2" type="1">
-<li>Baza danych</li>
-</ol>
-<p>Baza danych to zorganizowany zbiór danych, który jest przechowywany i zarządzany w taki sposób, aby można było łatwo je przeszukiwać, aktualizować i analizować.</p>
-<p>Najważniejsze cechy bazy danych:</p>
-<ul>
-<li>Strukturalność – dane są uporządkowane według określonego schematu.</li>
-<li>Centralizacja – wszystkie dane są przechowywane w jednym miejscu i dostępne dla uprawnionych użytkowników.</li>
-<li>Trwałość i bezpieczeństwo – dane są chronione przed utratą i nieautoryzowanym dostępem.</li>
-</ul>
-<p>Przykłady baz danych w życiu codziennym:</p>
-<ul>
-<li>Lista kontaktów w telefonie (przechowuje imię, numer, adres e-mail)</li>
-<li>System rezerwacji w hotelu (przechowuje informacje o gościach, pokojach i dostępności)</li>
-<li>Sklep internetowy (przechowuje produkty, zamówienia, dane klientów)</li>
-</ul>
-<ol start="3" type="1">
-<li>System Zarządzania Bazą Danych (DBMS)</li>
-</ol>
-<p>Sam zbiór danych to nie wszystko – potrzebujemy sposobu, aby nimi efektywnie zarządzać. Tu wchodzi DBMS – oprogramowanie, które pozwala na:</p>
-<ul>
-<li>Tworzenie i modyfikowanie baz danych – np. dodawanie nowych tabel, kolumn, reguł integralności.</li>
-<li>Wstawianie, aktualizowanie i usuwanie danych – bez konieczności bezpośredniej manipulacji plikami.</li>
-<li>Wyszukiwanie i raportowanie informacji – szybkie zapytania do dużych zbiorów danych.</li>
-<li>Zarządzanie bezpieczeństwem i uprawnieniami – kto może odczytać lub zmienić dane.</li>
-</ul>
-<p>Przykłady popularnych DBMS: MySQL, PostgreSQL, Oracle, Microsoft SQL Server, SQLite.</p>
-<p>Każdy z nich implementuje standardowe funkcje, choć różnią się wydajnością, skalowalnością i dodatkowymi możliwościami.</p>
-<p>Podsumowanie</p>
-<ul>
-<li>Dane – surowe fakty</li>
-<li>Informacja – dane zinterpretowane i uporządkowane</li>
-<li>Baza danych – zorganizowany zbiór danych</li>
-<li>DBMS – oprogramowanie do zarządzania bazą danych</li>
-</ul>
-<p>Zrozumienie tych pojęć pozwala nam w kolejnych wykładach przechodzić do bardziej technicznych zagadnień, takich jak projektowanie schematów czy pisanie zapytań w SQL.</p>
+<section id="typy-związków" class="level2">
+<h2 class="anchored" data-anchor-id="typy-związków">Typy związków</h2>
+<p>Związek 1:1 (jeden do jednego) - Każdy obiekt jednej encji odpowiada najwyżej jednemu obiektowi drugiej encji. - Przykład: każdy człowiek ma jedno unikalne PESEL.</p>
+<p>Związek 1:N (jeden do wielu) - Jeden obiekt encji A może być powiązany z wieloma obiektami encji B, ale nie odwrotnie. - Przykład: jeden wykładowca prowadzi wiele kursów, ale każdy kurs ma dokładnie jednego prowadzącego.</p>
+<p>Związek N:M (wiele do wielu) - Jeden obiekt encji A może być powiązany z wieloma obiektami encji B i odwrotnie. - Przykład: studenci zapisują się na wiele kursów, a każdy kurs realizowany jest przez wielu studentów.</p>
+<p>Mini-case: kino - Encje: „Film”, „Widz”, „Seans”. - Widzowie mogą oglądać wiele filmów, a każdy film może być oglądany przez wielu widzów. To klasyczne N:M.</p>
 </section>
-<section id="architektura-systemów-baz-danych" class="level2">
-<h2 class="anchored" data-anchor-id="architektura-systemów-baz-danych">Architektura systemów baz danych</h2>
-<p>Kiedy mamy już pojęcie o tym, czym jest baza danych i DBMS, warto zrozumieć, jak systemy baz danych są zorganizowane wewnętrznie, aby efektywnie przechowywać, przetwarzać i udostępniać dane.</p>
-<ol type="1">
-<li>Poziomy abstrakcji w bazach danych</li>
-</ol>
-<p>Systemy baz danych stosują różne poziomy abstrakcji, aby oddzielić fizyczną reprezentację danych od tego, co widzi użytkownik. Wyróżniamy trzy główne poziom:</p>
-<ol type="1">
-<li>Poziom fizyczny (wewnętrzny)</li>
-</ol>
+<section id="atrybuty-proste-złożone-wielowartościowe" class="level2">
+<h2 class="anchored" data-anchor-id="atrybuty-proste-złożone-wielowartościowe">Atrybuty proste, złożone, wielowartościowe</h2>
 <ul>
-<li>Opisuje sposób przechowywania danych na dysku – struktury plików, indeksy, metody organizacji danych.</li>
-<li>Użytkownicy rzadko wchodzą w tę warstwę, ale jest ona kluczowa dla wydajności systemu.</li>
+<li>Atrybut prosty – nie da się go podzielić: „Data urodzenia”, „PESEL”.</li>
+<li>Atrybut złożony – składa się z mniejszych: „Adres” → „Ulica”, „Kod pocztowy”, „Miasto”.</li>
+<li>Atrybut wielowartościowy – może mieć wiele wartości dla jednej encji: „Numery telefonów” dla jednego studenta.</li>
 </ul>
-<ol start="2" type="1">
-<li>Poziom logiczny (pośredni)</li>
-</ol>
-<ul>
-<li>Określa strukturę danych i relacje między nimi, niezależnie od sposobu przechowywania fizycznego.</li>
-<li>Przykład: tabela „Studenci” z kolumnami „Imię”, „Nazwisko”, „NrIndeksu”.</li>
-<li>Poziom ten umożliwia DBMS zapewnienie spójności danych i integralności bez ujawniania szczegółów fizycznych.</li>
-</ul>
-<ol start="3" type="1">
-<li>Poziom zewnętrzny (widok użytkownika)</li>
-</ol>
-<ul>
-<li>To, co widzi konkretny użytkownik lub aplikacja.</li>
-<li>Użytkownicy nie muszą znać całej bazy – mogą mieć dostęp tylko do wybranych tabel lub kolumn.</li>
-<li>Przykład: wykładowca widzi tylko dane swoich studentów, a administracja widzi pełne informacje.</li>
-</ul>
-<p>Dzięki podziałowi na poziomy zmiany na jednym poziomie nie wpływają bezpośrednio na inne – np. zmiana sposobu przechowywania danych na dysku nie wymaga modyfikacji zapytań użytkowników.</p>
-<ol type="1">
-<li>Model ANSI/SPARC</li>
-</ol>
-<p>Aby ujednolicić tę koncepcję, w latach 70. powstał model architektury ANSI/SPARC:</p>
-<ul>
-<li>Poziom wewnętrzny – fizyczne przechowywanie danych</li>
-<li>Poziom logiczny – schemat logiczny całej bazy danych</li>
-<li>Poziom zewnętrzny – schematy zewnętrzne, czyli widoki użytkowników</li>
-</ul>
-<p>Zalety modelu ANSI/SPARC:</p>
-<ul>
-<li>Izolacja danych – zmiany w przechowywaniu danych nie wpływają na aplikacje.</li>
-<li>Elastyczność – można tworzyć różne widoki dla różnych użytkowników.</li>
-<li>Bezpieczeństwo i kontrola dostępu – każdy użytkownik widzi tylko dane, do których ma uprawnienia.</li>
-</ul>
-<ol type="1">
-<li>Podsumowanie</li>
-</ol>
-<ul>
-<li>Poziomy abstrakcji umożliwiają oddzielenie implementacji fizycznej od sposobu używania danych.</li>
-<li>Model ANSI/SPARC jest klasycznym sposobem przedstawienia tej architektury, który pomaga zrozumieć działanie każdego DBMS.</li>
-<li>Dzięki temu systemy baz danych są zarówno wydajne, jak i łatwe w użyciu dla użytkowników.</li>
-</ul>
+<p>👉 To ważne, bo w późniejszym projektowaniu relacyjnym atrybut wielowartościowy często trzeba przekształcić w oddzielną tabelę.</p>
+<p>Przykład: - Student może mieć wiele adresów e-mail. - W modelu ER narysujemy atrybut „Email” jako elipsę podwójną. - W modelu relacyjnym – stworzymy tabelę „AdresyEmail” powiązaną z tabelą „Studenci”.</p>
 </section>
-<section id="model-relacyjny-relacje-krotki-atrybuty-domeny" class="level2">
-<h2 class="anchored" data-anchor-id="model-relacyjny-relacje-krotki-atrybuty-domeny">Model relacyjny: relacje, krotki, atrybuty, domeny</h2>
-<p>Gdy już rozumiemy, czym jest baza danych i jak zorganizowana jest jej architektura, możemy przejść do serca współczesnych baz danych – modelu relacyjnego, który wprowadził Edgar F. Codd w latach 70. XX wieku.</p>
-<ol type="1">
-<li>Co to jest relacja?</li>
-</ol>
-<ul>
-<li>W modelu relacyjnym dane są przechowywane w tabelach, które nazywamy relacjami.</li>
-<li>Każda tabela opisuje pewien zbiór obiektów lub zdarzeń o tych samych właściwościach.</li>
-<li>Przykład: tabela „Studenci” może przechowywać dane o wszystkich studentach danej uczelni.</li>
-</ul>
-<ol type="1">
-<li>Krotki (wiersze)</li>
-</ol>
-<ul>
-<li>Krotka to pojedynczy rekord w tabeli – czyli jeden wiersz.</li>
-<li>Każda krotka przechowuje wartości wszystkich kolumn dla jednego obiektu lub zdarzenia.</li>
-<li>Przykład: w tabeli „Studenci” krotką jest informacja: „Jan Kowalski, nr indeksu 12345, kierunek Informatyka”.</li>
-</ul>
-<ol type="1">
-<li>Atrybuty (kolumny)</li>
-</ol>
-<ul>
-<li>Atrybut to kolumna w tabeli – opisuje jedną właściwość obiektu.</li>
-<li>Każda kolumna ma nazwę i określony typ danych.</li>
-<li>Przykład: w tabeli „Studenci” atrybutami mogą być: „Imię”, „Nazwisko”, „NrIndeksu”, „Kierunek”.</li>
-</ul>
-<ol type="1">
-<li>Domeny</li>
-</ol>
-<ul>
-<li>Domena to zestaw wartości, które mogą przyjmować dane w danym atrybucie.</li>
-<li>Określa typ danych (np. liczba całkowita, tekst, data) i często dodatkowe ograniczenia (np. długość tekstu, zakres liczb).</li>
-<li>Przykład: atrybut „NrIndeksu” może mieć domenę „ciąg 5-cyfrowych liczb”, a „Imię” – „ciąg znaków do 50 liter”.</li>
-</ul>
-<ol type="1">
-<li>Schemat i instancja relacji</li>
-</ol>
-<ul>
-<li>Schemat relacji opisuje strukturę tabeli – nazwy kolumn i ich typy danych.</li>
-<li>Instancja relacji to zbiór wszystkich krotek w danym momencie – czyli aktualna zawartość tabeli.</li>
-<li>Przykład: Schemat tabeli „Studenci” to kolumny „Imię, Nazwisko, NrIndeksu, Kierunek”, a instancja to wszystkie wiersze z danymi konkretnych studentów.</li>
-</ul>
-<ol type="1">
-<li>Podsumowanie</li>
-</ol>
-<ul>
-<li>Model relacyjny organizuje dane w tabele (relacje) składające się z wierszy (krotek) i kolumn (atrybutów).</li>
-<li>Każdy atrybut posiada swoją domenę, czyli zestaw dopuszczalnych wartości.</li>
-<li>Schemat opisuje strukturę tabeli, a instancja to jej aktualne dane.</li>
-<li>Dzięki tej prostocie model relacyjny jest łatwy do zrozumienia, elastyczny i wydajny, co tłumaczy jego popularność w systemach baz danych.</li>
-</ul>
+<section id="przykłady-całościowe" class="level2">
+<h2 class="anchored" data-anchor-id="przykłady-całościowe">Przykłady całościowe</h2>
+<p>Na koniec możemy omówić kilka kompletnych mini-systemów, żeby pokazać różne rodzaje encji, związków i atrybutów.</p>
+<p>Przykład A – System rezerwacji hotelu - Encje: „Pokój”, „Gość”, „Rezerwacja”. - Związki: Gość „rezerwuje” Pokój. - Atrybuty: Rezerwacja ma datę początku, datę końca i status.</p>
+<p>Przykład B – Uczelnia - Encje: „Student”, „Kurs”, „Wykładowca”. - Związki: Student „zapisuje się na” Kurs, Wykładowca „prowadzi” Kurs. - Atrybuty: Student – imię, nazwisko, nr indeksu. Kurs – nazwa, punktacja ECTS.</p>
+<p>Przykład C – Sklep internetowy - Encje: „Klient”, „Produkt”, „Zamówienie”. - Związki: Klient „składa” Zamówienie, Zamówienie „zawiera” Produkt. - Atrybuty: Produkt – cena, opis; Zamówienie – data, status.</p>
+<p>⸻</p>
 </section>
-<section id="klucze-i-integralność-danych" class="level2">
-<h2 class="anchored" data-anchor-id="klucze-i-integralność-danych">Klucze i integralność danych</h2>
-<p>Po zrozumieniu podstaw modelu relacyjnego warto przyjrzeć się, jak zapewniamy spójność i poprawność danych w bazach danych. Klucze i reguły integralności są tutaj kluczowe.</p>
-<ol type="1">
-<li>Klucz główny (Primary Key)</li>
-</ol>
+<section id="podsumowanie" class="level2">
+<h2 class="anchored" data-anchor-id="podsumowanie">Podsumowanie</h2>
 <ul>
-<li>Klucz główny to jeden lub kilka atrybutów, które jednoznacznie identyfikują każdą krotkę w tabeli.</li>
-<li>Nikt nie może mieć dwóch rekordów z tym samym kluczem głównym.</li>
-<li>Przykład: w tabeli „Studenci” atrybut „NrIndeksu” może być kluczem głównym, bo każdy student ma unikalny numer indeksu.</li>
-<li>Klucz główny nie może przyjmować wartości NULL, ponieważ każda krotka musi być jednoznacznie identyfikowalna.</li>
+<li>Projektowanie bazy danych zaczynamy od analizy wymagań użytkownika.</li>
+<li>Model ER pozwala uporządkować wiedzę w postaci encje–atrybuty–związki.</li>
+<li>Wyróżniamy związki 1:1, 1:N, N:M oraz atrybuty proste, złożone i wielowartościowe.</li>
+<li>Diagram ERD to narzędzie komunikacji – łączy świat użytkownika ze światem projektanta i programisty.</li>
 </ul>
-<ol type="1">
-<li>Klucz kandydujący (Candidate Key)</li>
-</ol>
-<ul>
-<li>Klucz kandydujący to każdy atrybut lub kombinacja atrybutów, która może potencjalnie pełnić funkcję klucza głównego.</li>
-<li>W tabeli może być wiele kluczy kandydujących, ale wybieramy tylko jeden jako klucz główny.</li>
-<li>Przykład: w tabeli „Studenci” zarówno „NrIndeksu”, jak i np. „PESEL” mogłyby być kluczami kandydującymi, ale wybieramy jeden z nich na klucz główny.</li>
-</ul>
-<ol type="1">
-<li>Klucz obcy (Foreign Key)</li>
-</ol>
-<ul>
-<li>Klucz obcy to atrybut w jednej tabeli, który odnosi się do klucza głównego w innej tabeli.</li>
-<li>Pozwala łączyć tabele i zapewnia integralność referencyjną.</li>
-<li>Przykład: tabela „Oceny” może mieć atrybut „NrIndeksu”, który jest kluczem obcym wskazującym na tabelę „Studenci”. Dzięki temu każda ocena jest przypisana do istniejącego studenta.</li>
-</ul>
-<ol type="1">
-<li>Integralność danych</li>
-</ol>
-<ul>
-<li>Integralność encji – każda krotka w tabeli musi być jednoznacznie identyfikowalna (klucz główny).</li>
-<li>Integralność referencyjna – każda wartość klucza obcego musi odpowiadać istniejącej wartości klucza głównego w tabeli powiązanej.</li>
-<li>Dbając o integralność danych, unikamy błędów, duplikatów i nieprawidłowych powiązań.</li>
-</ul>
-<ol type="1">
-<li>Podsumowanie</li>
-</ol>
-<ul>
-<li>Klucz główny – jednoznacznie identyfikuje wiersze w tabeli.</li>
-<li>Klucz kandydujący – potencjalny klucz główny.</li>
-<li>Klucz obcy – powiązuje tabele i zapewnia spójność danych między nimi.</li>
-<li>Integralność danych – zasady, które dbają o poprawność i spójność danych w bazie.</li>
-</ul>
-<p>Zrozumienie kluczy i reguł integralności jest fundamentem dalszego projektowania baz danych oraz pracy z SQL, ponieważ większość operacji w tabelach opiera się na relacjach i powiązaniach między danymi.</p>
 
 
 </section>
