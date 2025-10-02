@@ -10,20 +10,25 @@ Każdy projekt bazy danych zaczyna się od zrozumienia czego oczekuje użytkowni
 Bez tego łatwo stworzyć system, który jest poprawny technicznie, ale bezużyteczny w praktyce.
 
 Przykład 1 – biblioteka
+
 Biblioteka chce mieć system, który przechowuje dane o:
-	•	książkach (tytuł, autor, rok wydania, ISBN),
-	•	czytelnikach (imię, nazwisko, numer karty bibliotecznej),
-	•	wypożyczeniach (jaka książka, który czytelnik, kiedy wypożyczona i kiedy oddana).
+
+- książkach (tytuł, autor, rok wydania, ISBN),
+- czytelnikach (imię, nazwisko, numer karty bibliotecznej),
+- wypożyczeniach (jaka książka, który czytelnik, kiedy wypożyczona i kiedy oddana).
 
 Przykład 2 – sklep internetowy
+
 Sklep potrzebuje informacji o:
-	•	klientach (imię, adres, e-mail),
-	•	produktach (nazwa, cena, kategoria),
-	•	zamówieniach (który klient, jakie produkty, kiedy złożono, status zamówienia).
+
+- klientach (imię, adres, e-mail),
+- produktach (nazwa, cena, kategoria),
+- zamówieniach (który klient, jakie produkty, kiedy złożono, status zamówienia).
 
 👉 Zwróć uwagę:
-	•	w bibliotece najważniejszy jest związek wypożyczeń,
-	•	w sklepie – związek zamówień.
+
+- w bibliotece najważniejszy jest związek wypożyczeń,
+- w sklepie – związek zamówień.
 
 Już na tym etapie widać, że kluczowe są powiązania, a nie tylko same dane.
 
@@ -32,14 +37,16 @@ Już na tym etapie widać, że kluczowe są powiązania, a nie tylko same dane.
 ##  Diagramy encja–związek 
 
 Model ERD (Entity–Relationship Diagram) pozwala w przejrzysty sposób przedstawić jakie obiekty istnieją w systemie i jak są ze sobą powiązane.
+
 - Encje rysujemy jako prostokąty.
 - Przykład: „Student”, „Książka”, „Zamówienie”.
 - Atrybuty zapisujemy jako elipsy i łączymy z encją.
 - „Student” → Imię, Nazwisko, NrIndeksu.
 - Związki przedstawiamy jako romby.
-- „Student” ––> „Wypożycza” ––> „Książka”.
+- „Student” $\to$ „Wypożycza” $\to$ „Książka”.
 
 Przykład wizualny do opowiedzenia:
+
 - Wyobraźcie sobie trzy prostokąty: „Student”, „Książka” i „Bibliotekarz”.
 - Łączymy je rombem „Wypożycza”.
 - Dodajemy atrybuty: do studenta „NrIndeksu”, do książki „ISBN”, a do związku „Data wypożyczenia”.
@@ -51,24 +58,29 @@ Przykład wizualny do opowiedzenia:
 ## Typy związków 
 
 Związek 1:1 (jeden do jednego)
+
 - Każdy obiekt jednej encji odpowiada najwyżej jednemu obiektowi drugiej encji.
 - Przykład: każdy człowiek ma jedno unikalne PESEL.
 
 Związek 1:N (jeden do wielu)
+
 - Jeden obiekt encji A może być powiązany z wieloma obiektami encji B, ale nie odwrotnie.
 - Przykład: jeden wykładowca prowadzi wiele kursów, ale każdy kurs ma dokładnie jednego prowadzącego.
 
 Związek N:M (wiele do wielu)
+
 - Jeden obiekt encji A może być powiązany z wieloma obiektami encji B i odwrotnie.
 - Przykład: studenci zapisują się na wiele kursów, a każdy kurs realizowany jest przez wielu studentów.
 
 Mini-case: kino
+
 - Encje: „Film”, „Widz”, „Seans”.
 - Widzowie mogą oglądać wiele filmów, a każdy film może być oglądany przez wielu widzów. To klasyczne N:M.
 
 
 
-##  Atrybuty proste, złożone, wielowartościowe 
+##  Atrybuty proste, złożone, wielowartościowe
+
 - Atrybut prosty – nie da się go podzielić: „Data urodzenia”, „PESEL”.
 - Atrybut złożony – składa się z mniejszych: „Adres” → „Ulica”, „Kod pocztowy”, „Miasto”.
 - Atrybut wielowartościowy – może mieć wiele wartości dla jednej encji: „Numery telefonów” dla jednego studenta.
@@ -76,6 +88,7 @@ Mini-case: kino
 👉 To ważne, bo w późniejszym projektowaniu relacyjnym atrybut wielowartościowy często trzeba przekształcić w oddzielną tabelę.
 
 Przykład:
+
 - Student może mieć wiele adresów e-mail.
 - W modelu ER narysujemy atrybut „Email” jako elipsę podwójną.
 - W modelu relacyjnym – stworzymy tabelę „AdresyEmail” powiązaną z tabelą „Studenci”.
@@ -86,16 +99,19 @@ Przykład:
 Na koniec możemy omówić kilka kompletnych mini-systemów, żeby pokazać różne rodzaje encji, związków i atrybutów.
 
 Przykład A – System rezerwacji hotelu
+
 - Encje: „Pokój”, „Gość”, „Rezerwacja”.
 - Związki: Gość „rezerwuje” Pokój.
 - Atrybuty: Rezerwacja ma datę początku, datę końca i status.
 
 Przykład B – Uczelnia
+
 - Encje: „Student”, „Kurs”, „Wykładowca”.
 - Związki: Student „zapisuje się na” Kurs, Wykładowca „prowadzi” Kurs.
 - Atrybuty: Student – imię, nazwisko, nr indeksu. Kurs – nazwa, punktacja ECTS.
 
 Przykład C – Sklep internetowy
+
 - Encje: „Klient”, „Produkt”, „Zamówienie”.
 - Związki: Klient „składa” Zamówienie, Zamówienie „zawiera” Produkt.
 - Atrybuty: Produkt – cena, opis; Zamówienie – data, status.
