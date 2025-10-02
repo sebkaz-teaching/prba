@@ -68,6 +68,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../style.css">
 </head>
@@ -189,24 +218,69 @@ ul.task-list li input[type="checkbox"] {
 <section id="analiza-wymagań-użytkownika" class="level2">
 <h2 class="anchored" data-anchor-id="analiza-wymagań-użytkownika">Analiza wymagań użytkownika</h2>
 <p>Każdy projekt bazy danych zaczyna się od zrozumienia czego oczekuje użytkownik. Bez tego łatwo stworzyć system, który jest poprawny technicznie, ale bezużyteczny w praktyce.</p>
-<p>Przykład 1 – biblioteka Biblioteka chce mieć system, który przechowuje dane o: • książkach (tytuł, autor, rok wydania, ISBN), • czytelnikach (imię, nazwisko, numer karty bibliotecznej), • wypożyczeniach (jaka książka, który czytelnik, kiedy wypożyczona i kiedy oddana).</p>
-<p>Przykład 2 – sklep internetowy Sklep potrzebuje informacji o: • klientach (imię, adres, e-mail), • produktach (nazwa, cena, kategoria), • zamówieniach (który klient, jakie produkty, kiedy złożono, status zamówienia).</p>
-<p>👉 Zwróć uwagę: • w bibliotece najważniejszy jest związek wypożyczeń, • w sklepie – związek zamówień.</p>
+<p>Przykład 1 – biblioteka</p>
+<p>Biblioteka chce mieć system, który przechowuje dane o:</p>
+<ul>
+<li>książkach (tytuł, autor, rok wydania, ISBN),</li>
+<li>czytelnikach (imię, nazwisko, numer karty bibliotecznej),</li>
+<li>wypożyczeniach (jaka książka, który czytelnik, kiedy wypożyczona i kiedy oddana).</li>
+</ul>
+<p>Przykład 2 – sklep internetowy</p>
+<p>Sklep potrzebuje informacji o:</p>
+<ul>
+<li>klientach (imię, adres, e-mail),</li>
+<li>produktach (nazwa, cena, kategoria),</li>
+<li>zamówieniach (który klient, jakie produkty, kiedy złożono, status zamówienia).</li>
+</ul>
+<p>👉 Zwróć uwagę:</p>
+<ul>
+<li>w bibliotece najważniejszy jest związek wypożyczeń,</li>
+<li>w sklepie – związek zamówień.</li>
+</ul>
 <p>Już na tym etapie widać, że kluczowe są powiązania, a nie tylko same dane.</p>
 </section>
 <section id="diagramy-encjazwiązek" class="level2">
 <h2 class="anchored" data-anchor-id="diagramy-encjazwiązek">Diagramy encja–związek</h2>
-<p>Model ERD (Entity–Relationship Diagram) pozwala w przejrzysty sposób przedstawić jakie obiekty istnieją w systemie i jak są ze sobą powiązane. - Encje rysujemy jako prostokąty. - Przykład: „Student”, „Książka”, „Zamówienie”. - Atrybuty zapisujemy jako elipsy i łączymy z encją. - „Student” → Imię, Nazwisko, NrIndeksu. - Związki przedstawiamy jako romby. - „Student” ––&gt; „Wypożycza” ––&gt; „Książka”.</p>
-<p>Przykład wizualny do opowiedzenia: - Wyobraźcie sobie trzy prostokąty: „Student”, „Książka” i „Bibliotekarz”. - Łączymy je rombem „Wypożycza”. - Dodajemy atrybuty: do studenta „NrIndeksu”, do książki „ISBN”, a do związku „Data wypożyczenia”.</p>
+<p>Model ERD (Entity–Relationship Diagram) pozwala w przejrzysty sposób przedstawić jakie obiekty istnieją w systemie i jak są ze sobą powiązane.</p>
+<ul>
+<li>Encje rysujemy jako prostokąty.</li>
+<li>Przykład: „Student”, „Książka”, „Zamówienie”.</li>
+<li>Atrybuty zapisujemy jako elipsy i łączymy z encją.</li>
+<li>„Student” → Imię, Nazwisko, NrIndeksu.</li>
+<li>Związki przedstawiamy jako romby.</li>
+<li>„Student” <span class="math inline">\(\to\)</span> „Wypożycza” <span class="math inline">\(\to\)</span> „Książka”.</li>
+</ul>
+<p>Przykład wizualny do opowiedzenia:</p>
+<ul>
+<li>Wyobraźcie sobie trzy prostokąty: „Student”, „Książka” i „Bibliotekarz”.</li>
+<li>Łączymy je rombem „Wypożycza”.</li>
+<li>Dodajemy atrybuty: do studenta „NrIndeksu”, do książki „ISBN”, a do związku „Data wypożyczenia”.</li>
+</ul>
 <p>👉 Dzięki temu widzimy nie tylko obiekty, ale i relacje między nimi.</p>
 <p>⸻</p>
 </section>
 <section id="typy-związków" class="level2">
 <h2 class="anchored" data-anchor-id="typy-związków">Typy związków</h2>
-<p>Związek 1:1 (jeden do jednego) - Każdy obiekt jednej encji odpowiada najwyżej jednemu obiektowi drugiej encji. - Przykład: każdy człowiek ma jedno unikalne PESEL.</p>
-<p>Związek 1:N (jeden do wielu) - Jeden obiekt encji A może być powiązany z wieloma obiektami encji B, ale nie odwrotnie. - Przykład: jeden wykładowca prowadzi wiele kursów, ale każdy kurs ma dokładnie jednego prowadzącego.</p>
-<p>Związek N:M (wiele do wielu) - Jeden obiekt encji A może być powiązany z wieloma obiektami encji B i odwrotnie. - Przykład: studenci zapisują się na wiele kursów, a każdy kurs realizowany jest przez wielu studentów.</p>
-<p>Mini-case: kino - Encje: „Film”, „Widz”, „Seans”. - Widzowie mogą oglądać wiele filmów, a każdy film może być oglądany przez wielu widzów. To klasyczne N:M.</p>
+<p>Związek 1:1 (jeden do jednego)</p>
+<ul>
+<li>Każdy obiekt jednej encji odpowiada najwyżej jednemu obiektowi drugiej encji.</li>
+<li>Przykład: każdy człowiek ma jedno unikalne PESEL.</li>
+</ul>
+<p>Związek 1:N (jeden do wielu)</p>
+<ul>
+<li>Jeden obiekt encji A może być powiązany z wieloma obiektami encji B, ale nie odwrotnie.</li>
+<li>Przykład: jeden wykładowca prowadzi wiele kursów, ale każdy kurs ma dokładnie jednego prowadzącego.</li>
+</ul>
+<p>Związek N:M (wiele do wielu)</p>
+<ul>
+<li>Jeden obiekt encji A może być powiązany z wieloma obiektami encji B i odwrotnie.</li>
+<li>Przykład: studenci zapisują się na wiele kursów, a każdy kurs realizowany jest przez wielu studentów.</li>
+</ul>
+<p>Mini-case: kino</p>
+<ul>
+<li>Encje: „Film”, „Widz”, „Seans”.</li>
+<li>Widzowie mogą oglądać wiele filmów, a każdy film może być oglądany przez wielu widzów. To klasyczne N:M.</li>
+</ul>
 </section>
 <section id="atrybuty-proste-złożone-wielowartościowe" class="level2">
 <h2 class="anchored" data-anchor-id="atrybuty-proste-złożone-wielowartościowe">Atrybuty proste, złożone, wielowartościowe</h2>
@@ -216,14 +290,34 @@ ul.task-list li input[type="checkbox"] {
 <li>Atrybut wielowartościowy – może mieć wiele wartości dla jednej encji: „Numery telefonów” dla jednego studenta.</li>
 </ul>
 <p>👉 To ważne, bo w późniejszym projektowaniu relacyjnym atrybut wielowartościowy często trzeba przekształcić w oddzielną tabelę.</p>
-<p>Przykład: - Student może mieć wiele adresów e-mail. - W modelu ER narysujemy atrybut „Email” jako elipsę podwójną. - W modelu relacyjnym – stworzymy tabelę „AdresyEmail” powiązaną z tabelą „Studenci”.</p>
+<p>Przykład:</p>
+<ul>
+<li>Student może mieć wiele adresów e-mail.</li>
+<li>W modelu ER narysujemy atrybut „Email” jako elipsę podwójną.</li>
+<li>W modelu relacyjnym – stworzymy tabelę „AdresyEmail” powiązaną z tabelą „Studenci”.</li>
+</ul>
 </section>
 <section id="przykłady-całościowe" class="level2">
 <h2 class="anchored" data-anchor-id="przykłady-całościowe">Przykłady całościowe</h2>
 <p>Na koniec możemy omówić kilka kompletnych mini-systemów, żeby pokazać różne rodzaje encji, związków i atrybutów.</p>
-<p>Przykład A – System rezerwacji hotelu - Encje: „Pokój”, „Gość”, „Rezerwacja”. - Związki: Gość „rezerwuje” Pokój. - Atrybuty: Rezerwacja ma datę początku, datę końca i status.</p>
-<p>Przykład B – Uczelnia - Encje: „Student”, „Kurs”, „Wykładowca”. - Związki: Student „zapisuje się na” Kurs, Wykładowca „prowadzi” Kurs. - Atrybuty: Student – imię, nazwisko, nr indeksu. Kurs – nazwa, punktacja ECTS.</p>
-<p>Przykład C – Sklep internetowy - Encje: „Klient”, „Produkt”, „Zamówienie”. - Związki: Klient „składa” Zamówienie, Zamówienie „zawiera” Produkt. - Atrybuty: Produkt – cena, opis; Zamówienie – data, status.</p>
+<p>Przykład A – System rezerwacji hotelu</p>
+<ul>
+<li>Encje: „Pokój”, „Gość”, „Rezerwacja”.</li>
+<li>Związki: Gość „rezerwuje” Pokój.</li>
+<li>Atrybuty: Rezerwacja ma datę początku, datę końca i status.</li>
+</ul>
+<p>Przykład B – Uczelnia</p>
+<ul>
+<li>Encje: „Student”, „Kurs”, „Wykładowca”.</li>
+<li>Związki: Student „zapisuje się na” Kurs, Wykładowca „prowadzi” Kurs.</li>
+<li>Atrybuty: Student – imię, nazwisko, nr indeksu. Kurs – nazwa, punktacja ECTS.</li>
+</ul>
+<p>Przykład C – Sklep internetowy</p>
+<ul>
+<li>Encje: „Klient”, „Produkt”, „Zamówienie”.</li>
+<li>Związki: Klient „składa” Zamówienie, Zamówienie „zawiera” Produkt.</li>
+<li>Atrybuty: Produkt – cena, opis; Zamówienie – data, status.</li>
+</ul>
 <p>⸻</p>
 </section>
 <section id="podsumowanie" class="level2">
