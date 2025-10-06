@@ -9,61 +9,61 @@
   {
     "objectID": "lectures/wyklad3.html",
     "href": "lectures/wyklad3.html",
-    "title": "Wykład 3: Od modelu ER do modelu relacyjnego",
+    "title": "Od modelu ER do modelu relacyjnego",
     "section": "",
     "text": "Celem dzisiejszego wykładu jest pokazanie, jak przejść od koncepcyjnego modelu ERD (Entity–Relationship Diagram), który opisuje co chcemy przechowywać, do modelu relacyjnego, który mówi jak te dane będą fizycznie zorganizowane w tabelach.\n👉 Innymi słowy — dziś „przekładamy” logikę świata rzeczywistego na język tabel, kolumn i kluczy.",
     "crumbs": [
       "Książki",
       "Wykłady",
-      "Wykład 3: Od modelu ER do modelu relacyjnego"
+      "Od modelu ER do modelu relacyjnego"
     ]
   },
   {
     "objectID": "lectures/wyklad3.html#cel-wykładu",
     "href": "lectures/wyklad3.html#cel-wykładu",
-    "title": "Wykład 3: Od modelu ER do modelu relacyjnego",
+    "title": "Od modelu ER do modelu relacyjnego",
     "section": "",
     "text": "Celem dzisiejszego wykładu jest pokazanie, jak przejść od koncepcyjnego modelu ERD (Entity–Relationship Diagram), który opisuje co chcemy przechowywać, do modelu relacyjnego, który mówi jak te dane będą fizycznie zorganizowane w tabelach.\n👉 Innymi słowy — dziś „przekładamy” logikę świata rzeczywistego na język tabel, kolumn i kluczy.",
     "crumbs": [
       "Książki",
       "Wykłady",
-      "Wykład 3: Od modelu ER do modelu relacyjnego"
+      "Od modelu ER do modelu relacyjnego"
     ]
   },
   {
     "objectID": "lectures/wyklad3.html#wprowadzenie",
     "href": "lectures/wyklad3.html#wprowadzenie",
-    "title": "Wykład 3: Od modelu ER do modelu relacyjnego",
+    "title": "Od modelu ER do modelu relacyjnego",
     "section": "1. Wprowadzenie",
     "text": "1. Wprowadzenie\nZacznijmy od prostego pytania do grupy:\n„Czy narysowany diagram ERD to już baza danych?”\nWiększość studentów odpowie, że nie — i mają rację. ERD to tylko opis pojęć i powiązań między nimi, coś w rodzaju mapy koncepcyjnej. Dopiero model relacyjny pozwala tę mapę zaimplementować w systemie DBMS – czyli stworzyć konkretne tabele, relacje i klucze.\n\nPrzykład porównawczy:\nERD to jak plan architektoniczny domu. Model relacyjny to już projekt budowlany z wymiarami i materiałami.",
     "crumbs": [
       "Książki",
       "Wykłady",
-      "Wykład 3: Od modelu ER do modelu relacyjnego"
+      "Od modelu ER do modelu relacyjnego"
     ]
   },
   {
     "objectID": "lectures/wyklad3.html#przypomnienie-podstawowych-pojęć",
     "href": "lectures/wyklad3.html#przypomnienie-podstawowych-pojęć",
-    "title": "Wykład 3: Od modelu ER do modelu relacyjnego",
+    "title": "Od modelu ER do modelu relacyjnego",
     "section": "Przypomnienie podstawowych pojęć",
     "text": "Przypomnienie podstawowych pojęć\nZanim przejdziemy do reguł, powtórzmy szybko: • Encja – obiekt, o którym przechowujemy dane (np. Student, Kurs, Produkt). • Atrybut – właściwość tego obiektu (np. imię, nazwisko, cena). • Związek (relationship) – powiązanie między encjami (np. Student zapisuje się na Kurs). • Krotka (tuple) – pojedynczy wiersz tabeli (np. dane jednego studenta). • Domena – dopuszczalne wartości dla atrybutu (np. liczby od 1 do 5 dla oceny).\n👉 Wszystkie te pojęcia znajdą swoje odpowiedniki w modelu relacyjnym.",
     "crumbs": [
       "Książki",
       "Wykłady",
-      "Wykład 3: Od modelu ER do modelu relacyjnego"
+      "Od modelu ER do modelu relacyjnego"
     ]
   },
   {
     "objectID": "lectures/wyklad3.html#proces-mapowania-transformacji",
     "href": "lectures/wyklad3.html#proces-mapowania-transformacji",
-    "title": "Wykład 3: Od modelu ER do modelu relacyjnego",
+    "title": "Od modelu ER do modelu relacyjnego",
     "section": "Proces mapowania (transformacji)",
     "text": "Proces mapowania (transformacji)\nTeraz przechodzimy do sedna: jak zamienić ERD w zestaw tabel.\nMożna to potraktować jak przepis: krok po kroku.\n\n🔹 1. Encje → Tabele\nKażda encja z modelu ER staje się tabelą w modelu relacyjnym. Każdy atrybut encji staje się kolumną.\n„Wyobraźcie sobie, że prostokąty z diagramu ER zamieniamy w tabele SQL. Wszystkie elipsy (atrybuty) stają się kolumnami.”\nPrzykład:\n\nEncja: STUDENT (NrIndeksu, Imię, Nazwisko, RokStudiow)\n\nRelacja: STUDENT(NrIndeksu, Imię, Nazwisko, RokStudiow)\n🔹 2. Atrybuty złożone\nAtrybut złożony to taki, który sam składa się z kilku części. W modelu relacyjnym nie ma takiej konstrukcji, więc trzeba go rozbić.\nPrzykład:\nAdres = (Ulica, KodPocztowy, Miasto)\n„Zauważcie, że dzięki temu możemy np. wyszukiwać po samym mieście, co nie byłoby możliwe, gdyby cały adres był jednym polem tekstowym.”\n\n\n🔹 3. Atrybuty wielowartościowe\nAtrybut wielowartościowy to taki, który może mieć więcej niż jedną wartość dla jednej encji.\nPrzykład: Student może mieć wiele adresów e-mail.\nW modelu relacyjnym nie możemy trzymać wielu wartości w jednej kolumnie, więc: ➡️ Tworzymy osobną tabelę.\nEMAIL(NrIndeksu, Email)\n\nKlucz główny: (NrIndeksu, Email)\nNrIndeksu to klucz obcy do tabeli STUDENT.\n\n„To moment, w którym ERD zaczyna się rozrastać — z jednej encji robią się dwie tabele.\nAle dzięki temu baza pozostaje spójna i czytelna.”\n\n\n🔹 4. Związki 1:1\nZwiązek „jeden do jednego” oznacza, że każdemu rekordowi z jednej tabeli odpowiada najwyżej jeden rekord z drugiej.\nPrzykład:\n\nKażda osoba ma dokładnie jeden paszport.\n\nOSOBA(PESEL, Imię, Nazwisko)\nPASZPORT(NrPaszportu, DataWażności, PESEL)\nDodajemy PESEL jako klucz obcy w tabeli PASZPORT.\n„Jeśli obie strony są naprawdę w relacji 1:1, można też rozważyć połączenie tych tabel — ale zwykle zostawia się je osobno, gdy przechowują różne grupy informacji\n\n\n🔹 5. Związki 1:N\nTo najczęstszy przypadek w praktyce.\nPrzykład: Jeden wykładowca prowadzi wiele kursów.\nWYKŁADOWCA(IDWykładowcy, Imię, Nazwisko)\nKURS(IDKursu, Nazwa, IDWykładowcy)\nIDWykładowcy w tabeli KURS jest kluczem obcym.\n„Pamiętajcie: klucz obcy zawsze dodajemy po stronie N, czyli po tej, gdzie może być więcej rekordów.”\n\n\n🔹 6. Związki N:M\nTo przypadek „wiele do wielu” — np. student może uczestniczyć w wielu kursach, a każdy kurs ma wielu studentów.\nW tym wypadku nie da się dodać klucza obcego do jednej z tabel, więc tworzymy tabelę pośredniczącą.\nSTUDENT(NrIndeksu, Imię, Nazwisko)\nKURS(IDKursu, Nazwa)\nZAPIS(NrIndeksu, IDKursu, DataZapisu)\n„Ta trzecia tabela to tak naprawdę odwzorowanie związku. Dzięki niej możemy np. zapisać dodatkowe informacje o relacji — np. datę zapisania się na kurs.”\n\n\n5. Jak projektować dobre tabele?\nKiedy masz już relacje, czas je zdefiniować w SQL.\nTu warto podkreślić kilka zasad:\n\nCzytelne nazwy (jednolite, najlepiej w liczbie pojedynczej).\nTypy danych dopasowane do zawartości.\nOgraniczenia (constraints):\nPRIMARY KEY – jednoznaczna identyfikacja,\nFOREIGN KEY – zapewnia spójność,\nNOT NULL, UNIQUE, CHECK – wymuszają poprawność danych.\n\nPrzykład SQL:\nCREATE TABLE STUDENT (\n  NrIndeksu CHAR(6) PRIMARY KEY,\n  Imie VARCHAR(30) NOT NULL,\n  Nazwisko VARCHAR(40) NOT NULL\n);\n„To dopiero teraz jest konkretna implementacja — coś, co można utworzyć w PostgreSQL, MySQL czy Oracle. Ale zanim napiszemy SQL, zawsze powinniśmy mieć dobrze przemyślany model relacyjny.”\n\n\n6. Ćwiczenie praktyczne\n\nZadanie: Zaprojektuj schemat relacyjny dla firmy, w której pracownicy realizują projekty. Każdy projekt ma wielu pracowników, a każdy pracownik może uczestniczyć w wielu projektach. Dodatkowo pamiętamy od kiedy pracownik uczestniczy w projekcie.\n\nRozwiązanie:\n„Dziś nauczyliśmy się tłumaczyć język analityków (ERD) na język baz danych (model relacyjny).”\n\nEncje → tabele\nAtrybuty → kolumny\nZwiązki → klucze obce lub tabele pośrednie\nAtrybuty złożone → rozbijamy\nAtrybuty wielowartościowe → osobne tabele\n\n👉 W kolejnym wykładzie przejdziemy do normalizacji, czyli porządkowania tabel, by unikać błędów i redundancji.",
     "crumbs": [
       "Książki",
       "Wykłady",
-      "Wykład 3: Od modelu ER do modelu relacyjnego"
+      "Od modelu ER do modelu relacyjnego"
     ]
   },
   {

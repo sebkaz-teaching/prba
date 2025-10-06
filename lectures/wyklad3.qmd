@@ -1,5 +1,5 @@
 ---
-title: "Wykład 3: Od modelu ER do modelu relacyjnego"
+title: "Od modelu ER do modelu relacyjnego"
 ---
 
 
