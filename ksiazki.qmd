@@ -5,5 +5,7 @@ title: Książki i strony WWW
 ## Książki 
 
 <div id="QC">
-### Relacyjne bazy danych
+
+1. Ben Forta -  SQL w mnieniu oka. Helion. 2020.
+2. Thomas Nield - Pierwsze kroki z SQL. Praktyczne podejście dla początkujących. O'Reilly: 2016
 </div>

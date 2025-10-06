@@ -2,3 +2,5 @@
 .*DS_*
 
 /.quarto/
+
+**/*.quarto_ipynb

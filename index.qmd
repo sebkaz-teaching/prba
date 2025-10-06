@@ -13,7 +13,7 @@ Semestr: zimowy
 ### Wykład WEL21EA1S0:
 
 1. <del>02.10.2025 Czwartek     8.00 - 9.30. b 61 s 104</del>
-2. 06.10.2025 Poniedziałek 8.00 - 9.30. b 61 s 104
+2. <del>06.10.2025 Poniedziałek 8.00 - 9.30. b 61 s 104</del>
 3. 09.10.2025 Czwartek     8.00 - 9.30. b 61 s 104
 4. 16.10.2025 Czwartek     8.00 - 9.30. b 61 s 104
 5. 20.10.2025 Poniedziałek 9.50 - 11.25 b 61 s 104

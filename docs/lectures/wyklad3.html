@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Książki i strony WWW – Projektowanie Relacyjnych Baz Danych</title>
+<title>Wykład 3: Od modelu ER do modelu relacyjnego – Projektowanie Relacyjnych Baz Danych</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-969ddfa49e00a70eb3423444dbc81f6c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-274dc1d14b15d766dfc72bb6e59290d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-969ddfa49e00a70eb3423444dbc81f6c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-274dc1d14b15d766dfc72bb6e59290d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../style.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -80,9 +115,9 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Projektowanie Relacyjnych Baz Danych</span>
     </a>
   </div>
@@ -93,7 +128,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./ksiazki.html" aria-current="page"> 
+    <a class="nav-link" href="../ksiazki.html"> 
 <span class="menu-text">Książki</span></a>
   </li>  
 </ul>
@@ -107,7 +142,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Książki i strony WWW</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/wyklad1.html">Wykłady</a></li><li class="breadcrumb-item"><a href="../lectures/wyklad3.html">Wykład 3: Od modelu ER do modelu relacyjnego</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -118,14 +153,14 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
+      <a href="../index.html" class="sidebar-logo-link">
       </a>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Informacje ogólne</span></a>
   </div>
 </li>
@@ -140,19 +175,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/wyklad1.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/wyklad1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Wprowadzenie do relacyjnych baz danych</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/wyklad2.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/wyklad2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Projektowanie koncepcyjne – model ER (Entity-Relationship)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lectures/wyklad3.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/wyklad3.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Wykład 3: Od modelu ER do modelu relacyjnego</span></a>
   </div>
 </li>
@@ -168,16 +203,19 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title"><strong>Sections</strong></h2>
    
   <ul class="collapse">
-  <li><a href="#książki" id="toc-książki" class="nav-link active" data-scroll-target="#książki">Książki</a></li>
+  <li><a href="#cel-wykładu" id="toc-cel-wykładu" class="nav-link active" data-scroll-target="#cel-wykładu">🎯 Cel wykładu</a></li>
+  <li><a href="#wprowadzenie" id="toc-wprowadzenie" class="nav-link" data-scroll-target="#wprowadzenie">1. Wprowadzenie</a></li>
+  <li><a href="#przypomnienie-podstawowych-pojęć" id="toc-przypomnienie-podstawowych-pojęć" class="nav-link" data-scroll-target="#przypomnienie-podstawowych-pojęć">Przypomnienie podstawowych pojęć</a></li>
+  <li><a href="#proces-mapowania-transformacji" id="toc-proces-mapowania-transformacji" class="nav-link" data-scroll-target="#proces-mapowania-transformacji">Proces mapowania (transformacji)</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lectures/wyklad1.html">Wykłady</a></li><li class="breadcrumb-item"><a href="../lectures/wyklad3.html">Wykład 3: Od modelu ER do modelu relacyjnego</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Książki i strony WWW</h1>
+<h1 class="title">Wykład 3: Od modelu ER do modelu relacyjnego</h1>
 </div>
 
 
@@ -194,16 +232,126 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="książki" class="level2">
-<h2 class="anchored" data-anchor-id="książki">Książki</h2>
-<div id="QC">
-<ol type="1">
-<li>Ben Forta - SQL w mnieniu oka. Helion. 2020.</li>
-<li>Thomas Nield - Pierwsze kroki z SQL. Praktyczne podejście dla początkujących. O’Reilly: 2016</li>
-</ol>
-</div>
+<section id="cel-wykładu" class="level2">
+<h2 class="anchored" data-anchor-id="cel-wykładu">🎯 Cel wykładu</h2>
+<p>Celem dzisiejszego wykładu jest pokazanie, jak przejść od koncepcyjnego modelu ERD (Entity–Relationship Diagram), który opisuje co chcemy przechowywać, do modelu relacyjnego, który mówi jak te dane będą fizycznie zorganizowane w tabelach.</p>
+<p>👉 Innymi słowy — dziś „przekładamy” logikę świata rzeczywistego na język tabel, kolumn i kluczy.</p>
+</section>
+<section id="wprowadzenie" class="level2">
+<h2 class="anchored" data-anchor-id="wprowadzenie">1. Wprowadzenie</h2>
+<p>Zacznijmy od prostego pytania do grupy:</p>
+<p>„Czy narysowany diagram ERD to już baza danych?”</p>
+<p>Większość studentów odpowie, że nie — i mają rację. ERD to tylko opis pojęć i powiązań między nimi, coś w rodzaju mapy koncepcyjnej. Dopiero model relacyjny pozwala tę mapę zaimplementować w systemie DBMS – czyli stworzyć konkretne tabele, relacje i klucze.</p>
+<section id="przykład-porównawczy" class="level3">
+<h3 class="anchored" data-anchor-id="przykład-porównawczy">Przykład porównawczy:</h3>
+<p>ERD to jak plan architektoniczny domu. Model relacyjny to już projekt budowlany z wymiarami i materiałami.</p>
+</section>
+</section>
+<section id="przypomnienie-podstawowych-pojęć" class="level2">
+<h2 class="anchored" data-anchor-id="przypomnienie-podstawowych-pojęć">Przypomnienie podstawowych pojęć</h2>
+<p>Zanim przejdziemy do reguł, powtórzmy szybko: • Encja – obiekt, o którym przechowujemy dane (np. Student, Kurs, Produkt). • Atrybut – właściwość tego obiektu (np. imię, nazwisko, cena). • Związek (relationship) – powiązanie między encjami (np. Student zapisuje się na Kurs). • Krotka (tuple) – pojedynczy wiersz tabeli (np. dane jednego studenta). • Domena – dopuszczalne wartości dla atrybutu (np. liczby od 1 do 5 dla oceny).</p>
+<p>👉 Wszystkie te pojęcia znajdą swoje odpowiedniki w modelu relacyjnym.</p>
+</section>
+<section id="proces-mapowania-transformacji" class="level2">
+<h2 class="anchored" data-anchor-id="proces-mapowania-transformacji">Proces mapowania (transformacji)</h2>
+<p>Teraz przechodzimy do sedna: jak zamienić ERD w zestaw tabel.</p>
+<p>Można to potraktować jak przepis: krok po kroku.</p>
+<section id="encje-tabele" class="level3">
+<h3 class="anchored" data-anchor-id="encje-tabele">🔹 1. Encje → Tabele</h3>
+<p>Każda encja z modelu ER staje się tabelą w modelu relacyjnym. Każdy atrybut encji staje się kolumną.</p>
+<p>„Wyobraźcie sobie, że prostokąty z diagramu ER zamieniamy w tabele SQL. Wszystkie elipsy (atrybuty) stają się kolumnami.”</p>
+<p>Przykład:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Encja: STUDENT (NrIndeksu, Imię, Nazwisko, RokStudiow)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Relacja: STUDENT(NrIndeksu, Imię, Nazwisko, RokStudiow)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>🔹 2. Atrybuty złożone</p>
+<p>Atrybut złożony to taki, który sam składa się z kilku części. W modelu relacyjnym nie ma takiej konstrukcji, więc trzeba go rozbić.</p>
+<p>Przykład:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Adres <span class="op">=</span> (Ulica, KodPocztowy, Miasto)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>„Zauważcie, że dzięki temu możemy np. wyszukiwać po samym mieście, co nie byłoby możliwe, gdyby cały adres był jednym polem tekstowym.”</p>
+</section>
+<section id="atrybuty-wielowartościowe" class="level3">
+<h3 class="anchored" data-anchor-id="atrybuty-wielowartościowe">🔹 3. Atrybuty wielowartościowe</h3>
+<p>Atrybut wielowartościowy to taki, który może mieć więcej niż jedną wartość dla jednej encji.</p>
+<p>Przykład: Student może mieć wiele adresów e-mail.</p>
+<p>W modelu relacyjnym nie możemy trzymać wielu wartości w jednej kolumnie, więc: ➡️ Tworzymy osobną tabelę.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>EMAIL(NrIndeksu, Email)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Klucz główny: (NrIndeksu, Email)</li>
+<li>NrIndeksu to klucz obcy do tabeli STUDENT.</li>
+</ul>
+<p>„To moment, w którym ERD zaczyna się rozrastać — z jednej encji robią się dwie tabele.</p>
+<p>Ale dzięki temu baza pozostaje spójna i czytelna.”</p>
+</section>
+<section id="związki-11" class="level3">
+<h3 class="anchored" data-anchor-id="związki-11">🔹 4. Związki 1:1</h3>
+<p>Związek „jeden do jednego” oznacza, że każdemu rekordowi z jednej tabeli odpowiada najwyżej jeden rekord z drugiej.</p>
+<p>Przykład:</p>
+<ul>
+<li>Każda osoba ma dokładnie jeden paszport.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>OSOBA(PESEL, Imię, Nazwisko)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>PASZPORT(NrPaszportu, DataWażności, PESEL)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Dodajemy PESEL jako klucz obcy w tabeli PASZPORT.</p>
+<p>„Jeśli obie strony są naprawdę w relacji 1:1, można też rozważyć połączenie tych tabel — ale zwykle zostawia się je osobno, gdy przechowują różne grupy informacji</p>
+</section>
+<section id="związki-1n" class="level3">
+<h3 class="anchored" data-anchor-id="związki-1n">🔹 5. Związki 1:N</h3>
+<p>To najczęstszy przypadek w praktyce.</p>
+<p>Przykład: Jeden wykładowca prowadzi wiele kursów.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>WYKŁADOWCA(IDWykładowcy, Imię, Nazwisko)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>KURS(IDKursu, Nazwa, IDWykładowcy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>IDWykładowcy w tabeli KURS jest kluczem obcym.</p>
+<p>„Pamiętajcie: klucz obcy zawsze dodajemy po stronie N, czyli po tej, gdzie może być więcej rekordów.”</p>
+</section>
+<section id="związki-nm" class="level3">
+<h3 class="anchored" data-anchor-id="związki-nm">🔹 6. Związki N:M</h3>
+<p>To przypadek „wiele do wielu” — np. student może uczestniczyć w wielu kursach, a każdy kurs ma wielu studentów.</p>
+<p>W tym wypadku nie da się dodać klucza obcego do jednej z tabel, więc tworzymy tabelę pośredniczącą.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>STUDENT(NrIndeksu, Imię, Nazwisko)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>KURS(IDKursu, Nazwa)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>ZAPIS(NrIndeksu, IDKursu, DataZapisu)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>„Ta trzecia tabela to tak naprawdę odwzorowanie związku. Dzięki niej możemy np. zapisać dodatkowe informacje o relacji — np. datę zapisania się na kurs.”</p>
+</section>
+<section id="jak-projektować-dobre-tabele" class="level3">
+<h3 class="anchored" data-anchor-id="jak-projektować-dobre-tabele">5. Jak projektować dobre tabele?</h3>
+<p>Kiedy masz już relacje, czas je zdefiniować w SQL.</p>
+<p>Tu warto podkreślić kilka zasad:</p>
+<ul>
+<li>Czytelne nazwy (jednolite, najlepiej w liczbie pojedynczej).</li>
+<li>Typy danych dopasowane do zawartości.</li>
+<li>Ograniczenia (constraints):</li>
+<li>PRIMARY KEY – jednoznaczna identyfikacja,</li>
+<li>FOREIGN KEY – zapewnia spójność,</li>
+<li>NOT NULL, UNIQUE, CHECK – wymuszają poprawność danych.</li>
+</ul>
+<p>Przykład SQL:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> STUDENT (</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  NrIndeksu <span class="dt">CHAR</span>(<span class="dv">6</span>) <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  Imie <span class="dt">VARCHAR</span>(<span class="dv">30</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  Nazwisko <span class="dt">VARCHAR</span>(<span class="dv">40</span>) <span class="kw">NOT</span> <span class="kw">NULL</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>„To dopiero teraz jest konkretna implementacja — coś, co można utworzyć w PostgreSQL, MySQL czy Oracle. Ale zanim napiszemy SQL, zawsze powinniśmy mieć dobrze przemyślany model relacyjny.”</p>
+</section>
+<section id="ćwiczenie-praktyczne" class="level3">
+<h3 class="anchored" data-anchor-id="ćwiczenie-praktyczne">6. Ćwiczenie praktyczne</h3>
+<blockquote class="blockquote">
+<p>Zadanie: Zaprojektuj schemat relacyjny dla firmy, w której pracownicy realizują projekty. Każdy projekt ma wielu pracowników, a każdy pracownik może uczestniczyć w wielu projektach. Dodatkowo pamiętamy od kiedy pracownik uczestniczy w projekcie.</p>
+</blockquote>
+<p>Rozwiązanie:</p>
+<p>„Dziś nauczyliśmy się tłumaczyć język analityków (ERD) na język baz danych (model relacyjny).”</p>
+<ul>
+<li>Encje → tabele</li>
+<li>Atrybuty → kolumny</li>
+<li>Związki → klucze obce lub tabele pośrednie</li>
+<li>Atrybuty złożone → rozbijamy</li>
+<li>Atrybuty wielowartościowe → osobne tabele</li>
+</ul>
+<p>👉 W kolejnym wykładzie przejdziemy do normalizacji, czyli porządkowania tabel, by unikać błędów i redundancji.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
