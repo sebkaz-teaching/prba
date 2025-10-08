@@ -25,18 +25,19 @@ Dopiero model relacyjny pozwala tę mapę zaimplementować w systemie DBMS – c
 ### Przykład porównawczy:
 
 ERD to jak plan architektoniczny domu.
-Model relacyjny to już projekt budowlany z wymiarami i materiałami.
 
+Model relacyjny to już projekt budowlany z wymiarami i materiałami.
 
 
 ## Przypomnienie podstawowych pojęć
 
 Zanim przejdziemy do reguł, powtórzmy szybko:
-	•	Encja – obiekt, o którym przechowujemy dane (np. Student, Kurs, Produkt).
-	•	Atrybut – właściwość tego obiektu (np. imię, nazwisko, cena).
-	•	Związek (relationship) – powiązanie między encjami (np. Student zapisuje się na Kurs).
-	•	Krotka (tuple) – pojedynczy wiersz tabeli (np. dane jednego studenta).
-	•	Domena – dopuszczalne wartości dla atrybutu (np. liczby od 1 do 5 dla oceny).
+
+- Encja – obiekt, o którym przechowujemy dane (np. Student, Kurs, Produkt).
+- Atrybut – właściwość tego obiektu (np. imię, nazwisko, cena).
+- Związek (relationship) – powiązanie między encjami (np. Student zapisuje się na Kurs).
+- Krotka (tuple) – pojedynczy wiersz tabeli (np. dane jednego studenta).
+- Domena – dopuszczalne wartości dla atrybutu (np. liczby od 1 do 5 dla oceny).
 
 👉 Wszystkie te pojęcia znajdą swoje odpowiedniki w modelu relacyjnym.
 
@@ -47,13 +48,15 @@ Teraz przechodzimy do sedna: jak zamienić ERD w zestaw tabel.
 Można to potraktować jak przepis: krok po kroku.
 
 
-### 🔹 1. Encje → Tabele
+### 🔹 1. Encje $\to$ Tabele
 
 Każda encja z modelu ER staje się tabelą w modelu relacyjnym.
+
 Każdy atrybut encji staje się kolumną.
 
+Wyobraźmy sobie, że prostokąty z diagramu ER zamieniamy w tabele SQL. 
 
-„Wyobraźcie sobie, że prostokąty z diagramu ER zamieniamy w tabele SQL. Wszystkie elipsy (atrybuty) stają się kolumnami.”
+Wszystkie elipsy (atrybuty) stają się kolumnami.
 
 Przykład:
 ```sql
@@ -64,9 +67,10 @@ Relacja: STUDENT(NrIndeksu, Imię, Nazwisko, RokStudiow)
 
 ```
 
-🔹 2. Atrybuty złożone
+### 🔹 2. Atrybuty złożone
 
 Atrybut złożony to taki, który sam składa się z kilku części.
+
 W modelu relacyjnym nie ma takiej konstrukcji, więc trzeba go rozbić.
 
 Przykład:
@@ -74,8 +78,7 @@ Przykład:
 Adres = (Ulica, KodPocztowy, Miasto)
 ```
 
-
-„Zauważcie, że dzięki temu możemy np. wyszukiwać po samym mieście, co nie byłoby możliwe, gdyby cały adres był jednym polem tekstowym.”
+„Zauważmy, że dzięki temu możemy np. wyszukiwać po samym mieście, co nie byłoby możliwe, gdyby cały adres był jednym polem tekstowym.”
 
 
 
@@ -170,6 +173,7 @@ CREATE TABLE STUDENT (
 ```
 
 „To dopiero teraz jest konkretna implementacja — coś, co można utworzyć w PostgreSQL, MySQL czy Oracle.
+
 Ale zanim napiszemy SQL, zawsze powinniśmy mieć dobrze przemyślany model relacyjny.”
 
 ### 6. Ćwiczenie praktyczne
@@ -179,7 +183,7 @@ Ale zanim napiszemy SQL, zawsze powinniśmy mieć dobrze przemyślany model rela
 > Każdy projekt ma wielu pracowników, a każdy pracownik może uczestniczyć w wielu projektach.
 > Dodatkowo pamiętamy od kiedy pracownik uczestniczy w projekcie.
 
-Rozwiązanie:
+## Podsumowanie:
 
 „Dziś nauczyliśmy się tłumaczyć język analityków (ERD) na język baz danych (model relacyjny).”
 

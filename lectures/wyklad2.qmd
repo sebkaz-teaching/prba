@@ -2,8 +2,6 @@
 title: "Projektowanie koncepcyjne – model ER (Entity-Relationship)"
 ---
 
-
-
 ## Analiza wymagań użytkownika
 
 Każdy projekt bazy danych zaczyna się od zrozumienia czego oczekuje użytkownik.

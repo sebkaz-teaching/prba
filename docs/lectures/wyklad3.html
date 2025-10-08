@@ -104,6 +104,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../style.css">
 </head>
@@ -207,6 +236,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#wprowadzenie" id="toc-wprowadzenie" class="nav-link" data-scroll-target="#wprowadzenie">1. Wprowadzenie</a></li>
   <li><a href="#przypomnienie-podstawowych-pojęć" id="toc-przypomnienie-podstawowych-pojęć" class="nav-link" data-scroll-target="#przypomnienie-podstawowych-pojęć">Przypomnienie podstawowych pojęć</a></li>
   <li><a href="#proces-mapowania-transformacji" id="toc-proces-mapowania-transformacji" class="nav-link" data-scroll-target="#proces-mapowania-transformacji">Proces mapowania (transformacji)</a></li>
+  <li><a href="#podsumowanie" id="toc-podsumowanie" class="nav-link" data-scroll-target="#podsumowanie">Podsumowanie:</a></li>
   </ul>
 </nav>
     </div>
@@ -244,32 +274,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Większość studentów odpowie, że nie — i mają rację. ERD to tylko opis pojęć i powiązań między nimi, coś w rodzaju mapy koncepcyjnej. Dopiero model relacyjny pozwala tę mapę zaimplementować w systemie DBMS – czyli stworzyć konkretne tabele, relacje i klucze.</p>
 <section id="przykład-porównawczy" class="level3">
 <h3 class="anchored" data-anchor-id="przykład-porównawczy">Przykład porównawczy:</h3>
-<p>ERD to jak plan architektoniczny domu. Model relacyjny to już projekt budowlany z wymiarami i materiałami.</p>
+<p>ERD to jak plan architektoniczny domu.</p>
+<p>Model relacyjny to już projekt budowlany z wymiarami i materiałami.</p>
 </section>
 </section>
 <section id="przypomnienie-podstawowych-pojęć" class="level2">
 <h2 class="anchored" data-anchor-id="przypomnienie-podstawowych-pojęć">Przypomnienie podstawowych pojęć</h2>
-<p>Zanim przejdziemy do reguł, powtórzmy szybko: • Encja – obiekt, o którym przechowujemy dane (np. Student, Kurs, Produkt). • Atrybut – właściwość tego obiektu (np. imię, nazwisko, cena). • Związek (relationship) – powiązanie między encjami (np. Student zapisuje się na Kurs). • Krotka (tuple) – pojedynczy wiersz tabeli (np. dane jednego studenta). • Domena – dopuszczalne wartości dla atrybutu (np. liczby od 1 do 5 dla oceny).</p>
+<p>Zanim przejdziemy do reguł, powtórzmy szybko:</p>
+<ul>
+<li>Encja – obiekt, o którym przechowujemy dane (np. Student, Kurs, Produkt).</li>
+<li>Atrybut – właściwość tego obiektu (np. imię, nazwisko, cena).</li>
+<li>Związek (relationship) – powiązanie między encjami (np. Student zapisuje się na Kurs).</li>
+<li>Krotka (tuple) – pojedynczy wiersz tabeli (np. dane jednego studenta).</li>
+<li>Domena – dopuszczalne wartości dla atrybutu (np. liczby od 1 do 5 dla oceny).</li>
+</ul>
 <p>👉 Wszystkie te pojęcia znajdą swoje odpowiedniki w modelu relacyjnym.</p>
 </section>
 <section id="proces-mapowania-transformacji" class="level2">
 <h2 class="anchored" data-anchor-id="proces-mapowania-transformacji">Proces mapowania (transformacji)</h2>
 <p>Teraz przechodzimy do sedna: jak zamienić ERD w zestaw tabel.</p>
 <p>Można to potraktować jak przepis: krok po kroku.</p>
-<section id="encje-tabele" class="level3">
-<h3 class="anchored" data-anchor-id="encje-tabele">🔹 1. Encje → Tabele</h3>
-<p>Każda encja z modelu ER staje się tabelą w modelu relacyjnym. Każdy atrybut encji staje się kolumną.</p>
-<p>„Wyobraźcie sobie, że prostokąty z diagramu ER zamieniamy w tabele SQL. Wszystkie elipsy (atrybuty) stają się kolumnami.”</p>
+<section id="encje-to-tabele" class="level3">
+<h3 class="anchored" data-anchor-id="encje-to-tabele">🔹 1. Encje <span class="math inline">\(\to\)</span> Tabele</h3>
+<p>Każda encja z modelu ER staje się tabelą w modelu relacyjnym.</p>
+<p>Każdy atrybut encji staje się kolumną.</p>
+<p>Wyobraźmy sobie, że prostokąty z diagramu ER zamieniamy w tabele SQL.</p>
+<p>Wszystkie elipsy (atrybuty) stają się kolumnami.</p>
 <p>Przykład:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Encja: STUDENT (NrIndeksu, Imię, Nazwisko, RokStudiow)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Relacja: STUDENT(NrIndeksu, Imię, Nazwisko, RokStudiow)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>🔹 2. Atrybuty złożone</p>
-<p>Atrybut złożony to taki, który sam składa się z kilku części. W modelu relacyjnym nie ma takiej konstrukcji, więc trzeba go rozbić.</p>
+</section>
+<section id="atrybuty-złożone" class="level3">
+<h3 class="anchored" data-anchor-id="atrybuty-złożone">🔹 2. Atrybuty złożone</h3>
+<p>Atrybut złożony to taki, który sam składa się z kilku części.</p>
+<p>W modelu relacyjnym nie ma takiej konstrukcji, więc trzeba go rozbić.</p>
 <p>Przykład:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Adres <span class="op">=</span> (Ulica, KodPocztowy, Miasto)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>„Zauważcie, że dzięki temu możemy np. wyszukiwać po samym mieście, co nie byłoby możliwe, gdyby cały adres był jednym polem tekstowym.”</p>
+<p>„Zauważmy, że dzięki temu możemy np. wyszukiwać po samym mieście, co nie byłoby możliwe, gdyby cały adres był jednym polem tekstowym.”</p>
 </section>
 <section id="atrybuty-wielowartościowe" class="level3">
 <h3 class="anchored" data-anchor-id="atrybuty-wielowartościowe">🔹 3. Atrybuty wielowartościowe</h3>
@@ -332,14 +375,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  Imie <span class="dt">VARCHAR</span>(<span class="dv">30</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  Nazwisko <span class="dt">VARCHAR</span>(<span class="dv">40</span>) <span class="kw">NOT</span> <span class="kw">NULL</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>„To dopiero teraz jest konkretna implementacja — coś, co można utworzyć w PostgreSQL, MySQL czy Oracle. Ale zanim napiszemy SQL, zawsze powinniśmy mieć dobrze przemyślany model relacyjny.”</p>
+<p>„To dopiero teraz jest konkretna implementacja — coś, co można utworzyć w PostgreSQL, MySQL czy Oracle.</p>
+<p>Ale zanim napiszemy SQL, zawsze powinniśmy mieć dobrze przemyślany model relacyjny.”</p>
 </section>
 <section id="ćwiczenie-praktyczne" class="level3">
 <h3 class="anchored" data-anchor-id="ćwiczenie-praktyczne">6. Ćwiczenie praktyczne</h3>
 <blockquote class="blockquote">
 <p>Zadanie: Zaprojektuj schemat relacyjny dla firmy, w której pracownicy realizują projekty. Każdy projekt ma wielu pracowników, a każdy pracownik może uczestniczyć w wielu projektach. Dodatkowo pamiętamy od kiedy pracownik uczestniczy w projekcie.</p>
 </blockquote>
-<p>Rozwiązanie:</p>
+</section>
+</section>
+<section id="podsumowanie" class="level2">
+<h2 class="anchored" data-anchor-id="podsumowanie">Podsumowanie:</h2>
 <p>„Dziś nauczyliśmy się tłumaczyć język analityków (ERD) na język baz danych (model relacyjny).”</p>
 <ul>
 <li>Encje → tabele</li>
@@ -351,7 +398,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>👉 W kolejnym wykładzie przejdziemy do normalizacji, czyli porządkowania tabel, by unikać błędów i redundancji.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
