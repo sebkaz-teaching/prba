@@ -33,6 +33,9 @@ Zapewniały:
 - integralność i bezpieczeństwo,
 - wydajne przetwarzanie i wyszukiwanie.
 
+
+
+
 ### 🔹 Modele hierarchiczne i sieciowe
 
 Wczesne systemy wykorzystywały struktury drzewiaste lub grafowe.
@@ -87,9 +90,17 @@ Przykłady:
 - System rezerwacji hotelowej
 - Sklep internetowy
 
-
+Termin ,,baza danych'' uzywany jest na wiele róznych sposobów, ale na wykładzie 
+**baza danych** oznacza zbiór danych przechowywanych w pewien zorganizowany sposób. 
+Najprościej wyobrazić sobie bazę danych jako szafkę na dokumenty. Jest to miejsce umozliwiające
+przechowywanie informacji, niezaleznie od ich typu i sposobu organizacji. 
 
 ### 🔹 System Zarządzania Bazą Danych (DBMS)
+
+Bardzo często uzywamy terminu "baza danych" do określenia oprogramowania bazy danych, którego uzywamy. 
+Takie podejście jest błędne i powoduje wiele nieporozumień. Oprogramowanie BD nazywane jest poprawnie sustemem 
+zarządzania bazą danych (SZBD) lub (DBMS - Database Management System). Sama baza danych jest pojemnikiem tworzonym i modyfikowanym przez SZBD. Konkretna postać BD zienia się w zalezności od zastosowań. 
+
 
 Oprogramowanie do tworzenia, modyfikowania i przetwarzania baz danych.
 
@@ -102,6 +113,7 @@ Funkcje DBMS:
 
 Przykłady:
 MySQL, PostgreSQL, Oracle, SQL Server, SQLite.
+
 
 
 ## Architektura systemów baz danych
@@ -127,11 +139,13 @@ Zmiany w jednym poziomie nie wymagają zmian w pozostałych — to tzw. niezale�
 ### 🔹 Model ANSI/SPARC
 
 Formalny model trójpoziomowy:
+
 - poziom wewnętrzny – fizyczne przechowywanie danych,
 - poziom pojęciowy – logiczna struktura bazy,
 - poziom zewnętrzny – widoki użytkowników.
 
 Zalety:
+
 - izolacja danych,
 - bezpieczeństwo,
 - elastyczność i skalowalność.
@@ -142,8 +156,21 @@ Zalety:
 
 ### 🔹 Relacja (tabela)
 
-Zbiór danych o tej samej strukturze.
+TABELA to:
+
+- Zbiór danych o tej samej strukturze.
+- Uporządkowana lista zawierająca dane określonego typu
+
 Każda tabela opisuje jeden typ obiektów (np. Studenci, Kursy).
+
+Najwazniejsze, ze tabela przechowuje dane jednego typu. W jednej tabeli nie pojawi się 
+jednocześnie lista kontaktów i lista zamówień.
+> Uwaga: Technicznie taka tabela jest mozliwa do realizacji ale pobieranie konkretnych elementów 
+> byłoby znacznie utrudnione. 
+
+> Uwaga: Kazda tabela posiada **nazwę** pozwalającą jednoznacznie ją zidentyfikować. 
+> Nazwa zawsze jest unikalna - zadna inna tabela nie moze mieć takiej samej nazwy. 
+
 
 ### 🔹 Krotka (wiersz)
 
