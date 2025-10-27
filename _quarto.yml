@@ -17,7 +17,7 @@ website:
           - lectures/wyklad3.qmd
           - lectures/wyklad4.qmd
           - lectures/wyklad5.qmd
-          # - lectures/wyklad6.qmd
+          - lectures/wyklad6a.qmd
           # - lectures/wyklad7.qmd
       # - section: "Ćwiczenia"
       #   contents:

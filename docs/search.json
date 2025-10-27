@@ -1,10 +1,192 @@
 [
   {
-    "objectID": "lectures/plan.html",
-    "href": "lectures/plan.html",
-    "title": "Projektowanie Relacyjnych Baz Danych",
+    "objectID": "lectures/wyklad_sql_sekcje4_5.html",
+    "href": "lectures/wyklad_sql_sekcje4_5.html",
+    "title": "🧭 Wprowadzenie do optymalizacji zapytań SQL – Sekcje 4 i 5",
     "section": "",
-    "text": "Wykład 1: Wprowadzenie do baz danych i model relacyjny • Historia i ewolucja baz danych • Podstawowe pojęcia: dane, informacja, baza danych, DBMS • Architektura systemów baz danych (ANSI/SPARC, poziomy abstrakcji) • Model relacyjny: relacje, krotki, atrybuty, domeny • Klucze (główny, obcy, kandydujące) i integralność danych\n⸻\nWykład 2: Projektowanie koncepcyjne – model ER (Entity-Relationship) • Analiza wymagań użytkownika • Diagramy encja-związek (ERD): encje, atrybuty, związki • Typy związków: 1:1, 1:N, N:M • Atrybuty proste, złożone, wielowartościowe • Ćwiczenia: tworzenie ERD dla prostego systemu\n⸻\nWykład 3: Od modelu ER do modelu relacyjnego • Reguły transformacji ERD na schemat relacyjny • Mapowanie encji i związków • Schemat relacyjny – projektowanie tabel • Ćwiczenia: przejście od ERD do relacji\n⸻\nWykład 4: Normalizacja baz danych • Redundancja i anomalia danych (wstawiania, modyfikacji, usuwania) • Klucze funkcyjne i zależności funkcyjne • Postacie normalne: 1NF, 2NF, 3NF, BCNF • Przykłady normalizacji i denormalizacji\n⸻\nWykład 5: Wprowadzenie do SQL – definicja danych (DDL) • Podstawowe elementy składni SQL • Tworzenie baz danych i tabel (CREATE DATABASE, CREATE TABLE) • Typy danych w SQL • Ograniczenia integralności (PRIMARY KEY, FOREIGN KEY, UNIQUE, CHECK, NOT NULL) • Modyfikacja schematu (ALTER TABLE, DROP TABLE)\n⸻\nWykład 6: SQL – manipulacja danymi (DML) • Wstawianie danych (INSERT) • Aktualizacja i usuwanie danych (UPDATE, DELETE) • Podstawowe zapytania (SELECT, FROM, WHERE) • Operatory logiczne i porównania • Operacje na zbiorach (UNION, INTERSECT, EXCEPT)\n⸻\nWykład 7: SQL – zapytania złożone i funkcje • Łączenia tabel (JOIN: INNER, LEFT, RIGHT, FULL) • Funkcje agregujące (COUNT, SUM, AVG, MIN, MAX) • Grupowanie i filtrowanie grup (GROUP BY, HAVING) • Podzapytania (subqueries) • Krótki wstęp do indeksów i wydajności zapytań"
+    "text": "Indeksy to podstawowe narzędzie optymalizacji zapytań, które pozwala bazie danych szybko znaleźć potrzebne wiersze, bez konieczności skanowania całej tabeli.\nMożna je porównać do spisu treści w książce — zamiast czytać każdy rozdział, patrzymy od razu na właściwą stronę.\n\n\nBez indeksu baza danych musi sprawdzić każdy wiersz tabeli, by znaleźć pasujące rekordy (sequential scan).\nZ indeksem, silnik może odczytać tylko te dane, które spełniają warunek — znacznie szybciej i przy mniejszym zużyciu zasobów.\nKorzyści z indeksów:\n\n⏱️ Szybsze wyszukiwanie danych, szczególnie w dużych tabelach\n\n💾 Ograniczenie operacji I/O, bo baza czyta mniej bloków z dysku\n\n🔄 Przyspieszenie sortowania i łączenia tabel (JOIN), jeśli indeks obejmuje kolumny używane w warunkach\n\n\n\n\nNajczęściej spotykane:\n\nB-Tree (balanced tree) – najpopularniejszy typ, sprawdza się w większości wyszukiwań, zakresów i sortowań\n\nHash – szybki dostęp po dokładnej wartości (nie obsługuje zakresów)\n\nBitmap – efektywny dla kolumn o małej liczbie unikalnych wartości, np. płeć lub status\n\nKompozytowe – obejmują kilka kolumn, przydatne przy filtrach i sortowaniach wielokolumnowych\n\n\n\n\n\nKolumny używane w WHERE – aby szybciej wyszukać dane\n\nKolumny używane w JOIN – przyspiesza łączenie tabel\n\nKolumny w ORDER BY lub GROUP BY – pomaga szybciej sortować i grupować wyniki\n\nKolumny unikalne lub klucze główne – zapewnia integralność danych i przyspiesza wyszukiwanie\n\n\n\n\nIndeksy przyspieszają odczyt, ale mają też koszty:\n\n🔄 Spowolnienie operacji INSERT/UPDATE/DELETE, bo indeksy trzeba aktualizować\n\n💾 Zwiększone zużycie pamięci i przestrzeni dyskowej\n\n⚖️ Trzeba wybrać optymalny zestaw indeksów, żeby nie pogorszyć ogólnej wydajności"
+  },
+  {
+    "objectID": "lectures/wyklad_sql_sekcje4_5.html#sekcja-4-indeksy-w-sql",
+    "href": "lectures/wyklad_sql_sekcje4_5.html#sekcja-4-indeksy-w-sql",
+    "title": "🧭 Wprowadzenie do optymalizacji zapytań SQL – Sekcje 4 i 5",
+    "section": "",
+    "text": "Indeksy to podstawowe narzędzie optymalizacji zapytań, które pozwala bazie danych szybko znaleźć potrzebne wiersze, bez konieczności skanowania całej tabeli.\nMożna je porównać do spisu treści w książce — zamiast czytać każdy rozdział, patrzymy od razu na właściwą stronę.\n\n\nBez indeksu baza danych musi sprawdzić każdy wiersz tabeli, by znaleźć pasujące rekordy (sequential scan).\nZ indeksem, silnik może odczytać tylko te dane, które spełniają warunek — znacznie szybciej i przy mniejszym zużyciu zasobów.\nKorzyści z indeksów:\n\n⏱️ Szybsze wyszukiwanie danych, szczególnie w dużych tabelach\n\n💾 Ograniczenie operacji I/O, bo baza czyta mniej bloków z dysku\n\n🔄 Przyspieszenie sortowania i łączenia tabel (JOIN), jeśli indeks obejmuje kolumny używane w warunkach\n\n\n\n\nNajczęściej spotykane:\n\nB-Tree (balanced tree) – najpopularniejszy typ, sprawdza się w większości wyszukiwań, zakresów i sortowań\n\nHash – szybki dostęp po dokładnej wartości (nie obsługuje zakresów)\n\nBitmap – efektywny dla kolumn o małej liczbie unikalnych wartości, np. płeć lub status\n\nKompozytowe – obejmują kilka kolumn, przydatne przy filtrach i sortowaniach wielokolumnowych\n\n\n\n\n\nKolumny używane w WHERE – aby szybciej wyszukać dane\n\nKolumny używane w JOIN – przyspiesza łączenie tabel\n\nKolumny w ORDER BY lub GROUP BY – pomaga szybciej sortować i grupować wyniki\n\nKolumny unikalne lub klucze główne – zapewnia integralność danych i przyspiesza wyszukiwanie\n\n\n\n\nIndeksy przyspieszają odczyt, ale mają też koszty:\n\n🔄 Spowolnienie operacji INSERT/UPDATE/DELETE, bo indeksy trzeba aktualizować\n\n💾 Zwiększone zużycie pamięci i przestrzeni dyskowej\n\n⚖️ Trzeba wybrać optymalny zestaw indeksów, żeby nie pogorszyć ogólnej wydajności"
+  },
+  {
+    "objectID": "lectures/wyklad_sql_sekcje4_5.html#sekcja-5-praktyczne-przykłady-użycia-indeksów",
+    "href": "lectures/wyklad_sql_sekcje4_5.html#sekcja-5-praktyczne-przykłady-użycia-indeksów",
+    "title": "🧭 Wprowadzenie do optymalizacji zapytań SQL – Sekcje 4 i 5",
+    "section": "🧪 Sekcja 5 – Praktyczne przykłady użycia indeksów",
+    "text": "🧪 Sekcja 5 – Praktyczne przykłady użycia indeksów\nW tej sekcji pokażemy, jak indeksy wpływają na plan wykonania zapytania i rzeczywisty czas wykonania.\n\n🔹 Przykład w PostgreSQL\nMamy tabelę orders:\nCREATE TABLE orders (\n  id SERIAL PRIMARY KEY,\n  customer_id INTEGER,\n  order_date DATE,\n  total DECIMAL\n);\n\nScenariusz A – brak indeksu\nEXPLAIN ANALYZE\nSELECT * FROM orders WHERE customer_id = 42;\nWynik może wyglądać tak:\nSeq Scan on orders  (cost=0.00..450.00 rows=3 width=48)\n  Filter: (customer_id = 42)\nExecution Time: 22.5 ms\n\nBaza przeszukuje całą tabelę (Seq Scan), co jest kosztowne przy dużej liczbie rekordów.\n\n\n\nScenariusz B – z indeksem\nDodajemy indeks na kolumnie customer_id:\nCREATE INDEX idx_orders_customer ON orders(customer_id);\nPo wykonaniu tego samego zapytania:\nEXPLAIN ANALYZE\nSELECT * FROM orders WHERE customer_id = 42;\nPlan wykonania:\nIndex Scan using idx_orders_customer on orders  (cost=0.29..8.50 rows=3 width=48)\n  Index Cond: (customer_id = 42)\nExecution Time: 0.030 ms\n➡️ Widać ogromną poprawę wydajności: baza odczytuje tylko pasujące wiersze zamiast całej tabeli.\n\n\n\n🔹 Indeksy a JOIN\nPrzy łączeniu tabel:\nSELECT o.id, c.name\nFROM orders o\nJOIN customers c ON o.customer_id = c.id\nWHERE c.region = 'Europe';\n\nIndeks na customers.id i orders.customer_id przyspiesza JOIN\n\nIndeks na customers.region przyspiesza filtrowanie po regionie\n\n\n\n🔹 Wskazówki praktyczne\n\nTwórz indeksy tylko na kolumnach, które są często filtrowane lub sortowane\n\nAnalizuj plany wykonania przy użyciu EXPLAIN i EXPLAIN ANALYZE\n\nZwracaj uwagę na koszt operacji (cost=…) i liczbę wierszy (rows=...)\n\nPamiętaj o balansie: zbyt wiele indeksów może spowolnić zapis danych"
+  },
+  {
+    "objectID": "lectures/wyklad6a.html",
+    "href": "lectures/wyklad6a.html",
+    "title": "🧭 Wprowadzenie do optymalizacji zapytań SQL",
+    "section": "",
+    "text": "Optymalizacja zapytań SQL to jeden z najważniejszych elementów pracy z bazami danych.\nDotyczy zarówno programistów aplikacji, jak i administratorów baz danych (DBA).\nCelem jest takie przygotowanie zapytań, struktur danych i indeksów, aby uzyskać maksymalną wydajność przy minimalnym obciążeniu systemu.",
+    "crumbs": [
+      "Książki",
+      "Wykłady",
+      "🧭 Wprowadzenie do optymalizacji zapytań SQL"
+    ]
+  },
+  {
+    "objectID": "lectures/wyklad6a.html#dlaczego-optymalizacja-jest-ważna",
+    "href": "lectures/wyklad6a.html#dlaczego-optymalizacja-jest-ważna",
+    "title": "🧭 Wprowadzenie do optymalizacji zapytań SQL",
+    "section": "💡 Dlaczego optymalizacja jest ważna?",
+    "text": "💡 Dlaczego optymalizacja jest ważna?\nKażde zapytanie SQL, nawet najprostsze, wymaga od silnika bazy danych wykonania określonych operacji: odczytu danych z dysku, przetworzenia warunków WHERE, wykonania JOIN, GROUP BY, ORDER BY, a następnie zwrócenia wyników użytkownikowi.\nJeśli baza danych zawiera miliony rekordów, to nawet niewielkie różnice w sposobie wykonania zapytania mogą oznaczać:\n\nróżnicę między milisekundami a sekundami,\n\nobciążenie jednego wątku zamiast całego serwera,\n\nlub zużycie gigabajtów pamięci i I/O bez potrzeby.\n\n\n🧠 „Optymalizacja zapytań SQL to nie sztuka pisania krótszego kodu,\nlecz umiejętność zmuszenia silnika bazy danych do pracy mądrze, a nie ciężko.”",
+    "crumbs": [
+      "Książki",
+      "Wykłady",
+      "🧭 Wprowadzenie do optymalizacji zapytań SQL"
+    ]
+  },
+  {
+    "objectID": "lectures/wyklad6a.html#jak-działa-zapytanie-w-silniku-bazy-danych",
+    "href": "lectures/wyklad6a.html#jak-działa-zapytanie-w-silniku-bazy-danych",
+    "title": "🧭 Wprowadzenie do optymalizacji zapytań SQL",
+    "section": "⚙️ Jak działa zapytanie w silniku bazy danych?",
+    "text": "⚙️ Jak działa zapytanie w silniku bazy danych?\nAby zrozumieć optymalizację, musimy wiedzieć, co dzieje się z zapytaniem od momentu jego wysłania do bazy danych.\nSilnik SQL analizuje składnię zapytania, przepisuje je logicznie, wybiera najtańszy plan wykonania i dopiero wtedy odczytuje dane.",
+    "crumbs": [
+      "Książki",
+      "Wykłady",
+      "🧭 Wprowadzenie do optymalizacji zapytań SQL"
+    ]
+  },
+  {
+    "objectID": "lectures/wyklad6a.html#co-wpływa-na-wydajność-zapytań-sql",
+    "href": "lectures/wyklad6a.html#co-wpływa-na-wydajność-zapytań-sql",
+    "title": "🧭 Wprowadzenie do optymalizacji zapytań SQL",
+    "section": "🧩 Co wpływa na wydajność zapytań SQL?",
+    "text": "🧩 Co wpływa na wydajność zapytań SQL?\nWydajność zapytań zależy zarówno od tego, jak zapytanie jest napisane, jak i od tego, jak zorganizowane są dane w bazie:\n\n🔹 Struktura zapytania\n\nZłożoność klauzul WHERE, JOIN, ORDER BY\nZagnieżdżone podzapytania (subqueries)\nUżycie funkcji agregujących (COUNT, SUM, AVG)\n\n\n\n🔹 Architektura danych\n\nIlość danych w tabelach\n\nIndeksy (ich liczba, rodzaj i aktualność)\n\nKlucze główne i obce (PRIMARY KEY, FOREIGN KEY)\n\nStopień normalizacji lub denormalizacji danych\n\n\n\n🔹 Stan środowiska bazy\n\nDostępna pamięć RAM\n\nBuforowanie i cache dyskowy\n\nStatystyki tabel (ANALYZE, UPDATE STATISTICS)\n\nObciążenie serwera (inne procesy, sesje, transakcje)",
+    "crumbs": [
+      "Książki",
+      "Wykłady",
+      "🧭 Wprowadzenie do optymalizacji zapytań SQL"
+    ]
+  },
+  {
+    "objectID": "lectures/wyklad6a.html#przykład-znaczenia-optymalizacji",
+    "href": "lectures/wyklad6a.html#przykład-znaczenia-optymalizacji",
+    "title": "🧭 Wprowadzenie do optymalizacji zapytań SQL",
+    "section": "📊 Przykład znaczenia optymalizacji",
+    "text": "📊 Przykład znaczenia optymalizacji\nWyobraźmy sobie tabelę orders z 10 milionami zamówień.\nChcemy znaleźć wszystkie zamówienia z ostatnich 30 dni:\nSELECT * FROM orders WHERE order_date &gt;= CURRENT_DATE - INTERVAL '30 days';\n\nScenariusz A – brak indeksu\nSilnik musi przeskanować całą tabelę (tzw. Seq Scan). Każdy wiersz jest sprawdzany, czy spełnia warunek order_date &gt;= ....\n\n⏱️ Czas wykonania: ~3.2 s\n\n💾 Operacje I/O: wysokie\n\n\n\nScenariusz B – z indeksem\nDodajemy indeks:\nCREATE INDEX idx_orders_date ON orders(order_date);\nSilnik teraz korzysta z Index Scan, czyli odczytu tylko fragmentu danych pasujących do warunku.\n\n⏱️ Czas wykonania: ~0.03 s\n\n💾 Operacje I/O: minimalne\n\n➡️ 100× szybsze zapytanie – bez zmiany jednej linijki logiki, tylko dzięki optymalizacji struktury danych.",
+    "crumbs": [
+      "Książki",
+      "Wykłady",
+      "🧭 Wprowadzenie do optymalizacji zapytań SQL"
+    ]
+  },
+  {
+    "objectID": "lectures/wyklad6a.html#czym-jest-optymalizator-zapytań",
+    "href": "lectures/wyklad6a.html#czym-jest-optymalizator-zapytań",
+    "title": "🧭 Wprowadzenie do optymalizacji zapytań SQL",
+    "section": "🧠 Czym jest optymalizator zapytań?",
+    "text": "🧠 Czym jest optymalizator zapytań?\nOptymalizator analizuje zapytanie i decyduje, w jaki sposób najlepiej pobrać dane.\nNie zmienia logiki zapytania, ale może całkowicie zmienić:\n\nkolejność operacji,\n\nsposób łączenia tabel (JOIN order),\n\nwybór indeksów,\n\nmetodę sortowania lub agregacji.\n\n\n💡 Optymalizator to planista — nie wykonuje zapytania sam,\nale układa plan działania tak, by wynik uzyskać jak najszybciej i najtaniej.",
+    "crumbs": [
+      "Książki",
+      "Wykłady",
+      "🧭 Wprowadzenie do optymalizacji zapytań SQL"
+    ]
+  },
+  {
+    "objectID": "lectures/wyklad6a.html#etapy-przetwarzania-zapytania",
+    "href": "lectures/wyklad6a.html#etapy-przetwarzania-zapytania",
+    "title": "🧭 Wprowadzenie do optymalizacji zapytań SQL",
+    "section": "🔄 Etapy przetwarzania zapytania",
+    "text": "🔄 Etapy przetwarzania zapytania\nDla przykładu:\nSELECT name, salary \nFROM employees \nWHERE department_id = 10 AND salary &gt; 5000;\nSilnik przechodzi przez kilka logicznych etapów:\n\n1. Parsing (analiza składniowa)\n\nsprawdza poprawność składni SQL,\n\nweryfikuje istnienie tabel i kolumn,\n\ntworzy drzewo zapytania (parse tree).\n\n\n\n2. Rewriting (przepisanie logiczne)\n\nupraszcza warunki (WHERE TRUE, podwójne filtry),\n\nzamienia IN na EXISTS,\n\nłączy filtry logiczne (AND, OR),\n\nmoże przenosić warunki do podzapytań (predicate pushdown).\n\n\n\n3. Optimization (planowanie kosztowe)\nOptymalizator analizuje różne plany wykonania: - który indeks użyć,\n- w jakiej kolejności łączyć tabele,\n- jakiego algorytmu użyć (hash join, merge join, nested loop).\nKażdy plan ma przypisany koszt (cost estimate) oparty na: - liczbie wierszy,\n- selektywności warunków,\n- dostępnych indeksach,\n- statystykach i kosztach I/O oraz CPU.\n\n🧮 Optymalizator nie wykonuje zapytań — symuluje scenariusze i wybiera ten o najniższym koszcie.\n\n\n\n4. Execution Plan (plan wykonania)\nPo wyborze najlepszego planu, optymalizator przekazuje go do modułu wykonawczego.\nPlan opisuje krok po kroku, jak dane zostaną pobrane i przetworzone.\nMożemy go podejrzeć poleceniem:\nEXPLAIN SELECT ...\nlub\nEXPLAIN ANALYZE SELECT ...",
+    "crumbs": [
+      "Książki",
+      "Wykłady",
+      "🧭 Wprowadzenie do optymalizacji zapytań SQL"
+    ]
+  },
+  {
+    "objectID": "lectures/wyklad6a.html#co-to-jest-plan-zapytania",
+    "href": "lectures/wyklad6a.html#co-to-jest-plan-zapytania",
+    "title": "🧭 Wprowadzenie do optymalizacji zapytań SQL",
+    "section": "⚙️ Co to jest plan zapytania?",
+    "text": "⚙️ Co to jest plan zapytania?\nPlan zapytania to opis kroków, jakie silnik bazy danych musi wykonać, by uzyskać wynik.\nKażdy krok reprezentuje konkretną operację — np.: - Scan (odczyt danych z tabeli lub indeksu), - Join (łączenie danych z kilku tabel), - Sort (sortowanie wyników), - Aggregate (sumowanie, grupowanie, liczenie).\nKażdy z tych kroków ma przypisany szacowany koszt — liczbową wartość określającą, ile operacji CPU, I/O lub pamięci wymaga jego wykonanie.",
+    "crumbs": [
+      "Książki",
+      "Wykłady",
+      "🧭 Wprowadzenie do optymalizacji zapytań SQL"
+    ]
+  },
+  {
+    "objectID": "lectures/wyklad6a.html#składnia-polecenia-explain",
+    "href": "lectures/wyklad6a.html#składnia-polecenia-explain",
+    "title": "🧭 Wprowadzenie do optymalizacji zapytań SQL",
+    "section": "🧩 Składnia polecenia EXPLAIN",
+    "text": "🧩 Składnia polecenia EXPLAIN\nW większości systemów baz danych można użyć EXPLAIN na początku dowolnego zapytania:\nEXPLAIN SELECT * FROM employees WHERE department_id = 10;\nAby uzyskać więcej szczegółów, można dodać:\nEXPLAIN ANALYZE SELECT * FROM employees WHERE department_id = 10;\n📊 Różnica:\n\nEXPLAIN — pokazuje plan teoretyczny (na podstawie statystyk i kosztów),\nEXPLAIN ANALYZE — faktycznie wykonuje zapytanie i pokazuje rzeczywisty czas oraz liczbę przetworzonych wierszy.\n\n\n🧠 Przykład w PostgreSQL\nZałóżmy, że mamy tabelę:\nCREATE TABLE orders (\n  id SERIAL PRIMARY KEY,\n  customer_id INTEGER,\n  order_date DATE,\n  total DECIMAL\n);\n\nCREATE INDEX idx_orders_customer ON orders(customer_id);\ni wykonujemy zapytanie:\nEXPLAIN ANALYZE\nSELECT * FROM orders WHERE customer_id = 42;\n\n\n🔹 Wynik (plan zapytania):\nIndex Scan using idx_orders_customer on orders  (cost=0.29..8.50 rows=3 width=48)\n  Index Cond: (customer_id = 42)\nPlanning Time: 0.100 ms\nExecution Time: 0.030 ms\n\n\n\n\n\n\n\nElement\nZnaczenie\n\n\n\n\nIndex Scan\nBaza odczytuje dane przy użyciu indeksu (nie pełny skan tabeli).\n\n\nidx_orders_customer\nNazwa użytego indeksu.\n\n\ncost=0.29..8.50\nSzacowany koszt (startowy i całkowity). Im mniejszy, tym lepiej.\n\n\nrows=3\nSzacowana liczba wierszy, które spełnią warunek.\n\n\nwidth=48\nŚredni rozmiar jednego wiersza (w bajtach).\n\n\nIndex Cond\nWarunek, który został użyty do przeszukania indeksu.\n\n\nExecution Time\nFaktyczny czas wykonania (tylko w EXPLAIN ANALYZE).\n\n\n\n\n\n🔎 Porównanie: brak indeksu\nJeśli usuniemy indeks i uruchomimy to samo zapytanie:\nEXPLAIN ANALYZE\nSELECT * FROM orders WHERE customer_id = 42;\notrzymamy:\nSeq Scan on orders  (cost=0.00..450.00 rows=3 width=48)\n  Filter: (customer_id = 42)\nExecution Time: 22.5 ms\n📉 Różnica:\n\nBaza musi przeskanować całą tabelę (Seq Scan),\nPomimo tego, że wynik jest ten sam, wykonanie jest znacznie wolniejsze.\n\n💬 EXPLAIN pokazuje, że problemem nie jest zapytanie, lecz brak indeksu.",
+    "crumbs": [
+      "Książki",
+      "Wykłady",
+      "🧭 Wprowadzenie do optymalizacji zapytań SQL"
+    ]
+  },
+  {
+    "objectID": "lectures/wyklad6a.html#jak-korzystać-z-explain-w-praktyce",
+    "href": "lectures/wyklad6a.html#jak-korzystać-z-explain-w-praktyce",
+    "title": "🧭 Wprowadzenie do optymalizacji zapytań SQL",
+    "section": "🧮 Jak korzystać z EXPLAIN w praktyce",
+    "text": "🧮 Jak korzystać z EXPLAIN w praktyce\n\nSprawdzaj, czy używany jest indeks\n\nJeśli widzisz Seq Scan lub SCAN TABLE, to znak, że indeks nie jest wykorzystywany.\n\nZwracaj uwagę na kolejność JOINów\n\nCzasami odwrócenie kolejności tabel w zapytaniu może dać inny plan i lepszy czas.\n\nAnalizuj koszty (cost=…)\n\nPorównuj plany z różnymi indeksami i filtrami — wybieraj ten o niższym koszcie.\n\nUżywaj EXPLAIN ANALYZE tylko testowo\n\nW środowisku produkcyjnym EXPLAIN ANALYZE faktycznie wykonuje zapytanie, więc może być kosztowne.\n\nPorównuj teoretyczny i rzeczywisty plan\n\nJeśli szacunki (rows, cost) mocno różnią się od rzeczywistego czasu, oznacza to:\n\nbrak aktualnych statystyk,\nzły indeks,\nlub błędne założenia optymalizatora.",
+    "crumbs": [
+      "Książki",
+      "Wykłady",
+      "🧭 Wprowadzenie do optymalizacji zapytań SQL"
+    ]
+  },
+  {
+    "objectID": "lectures/wyklad6a.html#indeksy-w-sql",
+    "href": "lectures/wyklad6a.html#indeksy-w-sql",
+    "title": "🧭 Wprowadzenie do optymalizacji zapytań SQL",
+    "section": "🗂️ Indeksy w SQL",
+    "text": "🗂️ Indeksy w SQL\nIndeksy to podstawowe narzędzie optymalizacji zapytań, które pozwala bazie danych szybko znaleźć potrzebne wiersze, bez konieczności skanowania całej tabeli.\nMożna je porównać do spisu treści w książce — zamiast czytać każdy rozdział, patrzymy od razu na właściwą stronę.\n\n🔹 Dlaczego indeksy są ważne?\nBez indeksu baza danych musi sprawdzić każdy wiersz tabeli, by znaleźć pasujące rekordy (sequential scan).\nZ indeksem, silnik może odczytać tylko te dane, które spełniają warunek — znacznie szybciej i przy mniejszym zużyciu zasobów.\nKorzyści z indeksów:\n\n⏱️ Szybsze wyszukiwanie danych, szczególnie w dużych tabelach\n\n💾 Ograniczenie operacji I/O, bo baza czyta mniej bloków z dysku\n\n🔄 Przyspieszenie sortowania i łączenia tabel (JOIN), jeśli indeks obejmuje kolumny używane w warunkach\n\n\n\n🔹 Rodzaje indeksów\nNajczęściej spotykane:\n\nB-Tree (balanced tree) – najpopularniejszy typ, sprawdza się w większości wyszukiwań, zakresów i sortowań\n\nHash – szybki dostęp po dokładnej wartości (nie obsługuje zakresów)\n\nBitmap – efektywny dla kolumn o małej liczbie unikalnych wartości, np. płeć lub status\n\nKompozytowe – obejmują kilka kolumn, przydatne przy filtrach i sortowaniach wielokolumnowych\n\n\n\n🔹 Co indeksuje?\n\nKolumny używane w WHERE – aby szybciej wyszukać dane\n\nKolumny używane w JOIN – przyspiesza łączenie tabel\n\nKolumny w ORDER BY lub GROUP BY – pomaga szybciej sortować i grupować wyniki\n\nKolumny unikalne lub klucze główne – zapewnia integralność danych i przyspiesza wyszukiwanie\n\n\n\n🔹 Wady nadmiaru indeksów\nIndeksy przyspieszają odczyt, ale mają też koszty:\n\n🔄 Spowolnienie operacji INSERT/UPDATE/DELETE, bo indeksy trzeba aktualizować\n\n💾 Zwiększone zużycie pamięci i przestrzeni dyskowej\n\n⚖️ Trzeba wybrać optymalny zestaw indeksów, żeby nie pogorszyć ogólnej wydajności",
+    "crumbs": [
+      "Książki",
+      "Wykłady",
+      "🧭 Wprowadzenie do optymalizacji zapytań SQL"
+    ]
+  },
+  {
+    "objectID": "lectures/wyklad6a.html#praktyczne-aspekty-użycia-indeksów",
+    "href": "lectures/wyklad6a.html#praktyczne-aspekty-użycia-indeksów",
+    "title": "🧭 Wprowadzenie do optymalizacji zapytań SQL",
+    "section": "Praktyczne aspekty użycia indeksów",
+    "text": "Praktyczne aspekty użycia indeksów\nW tej sekcji rozszerzamy temat indeksów, unikając powtórzenia wcześniejszych przykładów z SELECT po customer_id.\nPrzy łączeniu tabel indeksy znacząco przyspieszają zapytania:\nSELECT o.id, c.name\nFROM orders o\nJOIN customers c ON o.customer_id = c.id\nWHERE c.region = 'Europe';\n\nIndeks na customers.id i orders.customer_id przyspiesza JOIN\nIndeks na customers.region przyspiesza filtrowanie po regionie",
+    "crumbs": [
+      "Książki",
+      "Wykłady",
+      "🧭 Wprowadzenie do optymalizacji zapytań SQL"
+    ]
+  },
+  {
+    "objectID": "lectures/wyklad6a.html#indeksy-a-sortowanie-i-grupowanie",
+    "href": "lectures/wyklad6a.html#indeksy-a-sortowanie-i-grupowanie",
+    "title": "🧭 Wprowadzenie do optymalizacji zapytań SQL",
+    "section": "Indeksy a sortowanie i grupowanie",
+    "text": "Indeksy a sortowanie i grupowanie\nIndeksy na kolumnach używanych w ORDER BY lub GROUP BY pozwalają uniknąć kosztownych operacji sortowania w pamięci:\nSELECT customer_id, SUM(total) \nFROM orders \nGROUP BY customer_id \nORDER BY SUM(total) DESC;\n\nIndeks na customer_id może przyspieszyć agregację\nIndeks kompozytowy z kolumną używaną w ORDER BY może wyeliminować dodatkowe sortowanie\n\n🔹 Wpływ indeksów na modyfikacje danych\n\nOperacje INSERT, UPDATE, DELETE wymagają aktualizacji indeksów\nZbyt wiele indeksów może spowolnić zapis danych\nW praktyce wybieramy najbardziej potrzebne indeksy i monitorujemy ich wpływ\n\n🔹 Wskazówki praktyczne\n\nTwórz indeksy tylko na kolumnach często filtrowanych lub sortowanych\nAnalizuj plany wykonania (EXPLAIN, EXPLAIN ANALYZE)\nZwracaj uwagę na koszt operacji (cost=…) i liczbę wierszy (rows=…)\nRównoważ czas odczytu i zapis danych – nie każdy indeks jest opłacalny",
+    "crumbs": [
+      "Książki",
+      "Wykłady",
+      "🧭 Wprowadzenie do optymalizacji zapytań SQL"
+    ]
+  },
+  {
+    "objectID": "lectures/wyklad6a.html#praktyczne-przykłady-użycia-indeksów",
+    "href": "lectures/wyklad6a.html#praktyczne-przykłady-użycia-indeksów",
+    "title": "🧭 Wprowadzenie do optymalizacji zapytań SQL",
+    "section": "🧪 Praktyczne przykłady użycia indeksów",
+    "text": "🧪 Praktyczne przykłady użycia indeksów\n\nIndeks na customer_id może przyspieszyć agregację\nIndeks kompozytowy z kolumną używaną w ORDER BY może wyeliminować dodatkowe sortowanie\n\n🔹 Wpływ indeksów na modyfikacje danych\n\nOperacje INSERT, UPDATE, DELETE wymagają aktualizacji indeksów\nZbyt wiele indeksów może spowolnić zapis danych\nW praktyce wybieramy najbardziej potrzebne indeksy i monitorujemy ich wpływ\n\n🔹 Wskazówki praktyczne\n\nTwórz indeksy tylko na kolumnach często filtrowanych lub sortowanych\nAnalizuj plany wykonania (EXPLAIN, EXPLAIN ANALYZE)\nZwracaj uwagę na koszt operacji (cost=…) i liczbę wierszy (rows=…)\nRównoważ czas odczytu i zapis danych – nie każdy indeks jest opłacalny",
+    "crumbs": [
+      "Książki",
+      "Wykłady",
+      "🧭 Wprowadzenie do optymalizacji zapytań SQL"
+    ]
   },
   {
     "objectID": "lectures/wyklad4.html",
@@ -273,7 +455,7 @@
     "href": "index.html#kalendarz",
     "title": "Informacje ogólne",
     "section": "Kalendarz",
-    "text": "Kalendarz\n\nWykład WEL21EA1S0:\n\n\n02.10.2025 Czwartek 8.00 - 9.30. b 61 s 104\n\n\n06.10.2025 Poniedziałek 8.00 - 9.30. b 61 s 104\n\n\n09.10.2025 Czwartek 8.00 - 9.30. b 61 s 104\n\n\n16.10.2025 Czwartek 8.00 - 9.30. b 61 s 104\n\n21.10.2025 Wtorek 8.00 - 9.35 b 61 s 104\n27.10.2025 Poniedziałek 9.50 - 11.25 b 61 s 104\n30.10.2025 Czwartek 8.00 - 9.30. b 61 s 104\n\n\n\nLaboratorium:",
+    "text": "Kalendarz\n\nWykład WEL21EA1S0:\n\n\n02.10.2025 Czwartek 8.00 - 9.30. b 61 s 104\n\n\n06.10.2025 Poniedziałek 8.00 - 9.30. b 61 s 104\n\n\n09.10.2025 Czwartek 8.00 - 9.30. b 61 s 104\n\n\n16.10.2025 Czwartek 8.00 - 9.30. b 61 s 104\n\n\n21.10.2025 Wtorek 8.00 - 9.35 b 61 s 116\n\n27.10.2025 Poniedziałek 9.50 - 11.25 b 61 s 104\n30.10.2025 Czwartek 8.00 - 9.30. b 61 s 104\n\n\n\nLaboratorium:",
     "crumbs": [
       "Książki",
       "Informacje ogólne"
@@ -544,5 +726,12 @@
       "Wykłady",
       "Jak uniknąć błędów w projektowaniu?"
     ]
+  },
+  {
+    "objectID": "lectures/plan.html",
+    "href": "lectures/plan.html",
+    "title": "Projektowanie Relacyjnych Baz Danych",
+    "section": "",
+    "text": "Wykład 1: Wprowadzenie do baz danych i model relacyjny • Historia i ewolucja baz danych • Podstawowe pojęcia: dane, informacja, baza danych, DBMS • Architektura systemów baz danych (ANSI/SPARC, poziomy abstrakcji) • Model relacyjny: relacje, krotki, atrybuty, domeny • Klucze (główny, obcy, kandydujące) i integralność danych\n⸻\nWykład 2: Projektowanie koncepcyjne – model ER (Entity-Relationship) • Analiza wymagań użytkownika • Diagramy encja-związek (ERD): encje, atrybuty, związki • Typy związków: 1:1, 1:N, N:M • Atrybuty proste, złożone, wielowartościowe • Ćwiczenia: tworzenie ERD dla prostego systemu\n⸻\nWykład 3: Od modelu ER do modelu relacyjnego • Reguły transformacji ERD na schemat relacyjny • Mapowanie encji i związków • Schemat relacyjny – projektowanie tabel • Ćwiczenia: przejście od ERD do relacji\n⸻\nWykład 4: Normalizacja baz danych • Redundancja i anomalia danych (wstawiania, modyfikacji, usuwania) • Klucze funkcyjne i zależności funkcyjne • Postacie normalne: 1NF, 2NF, 3NF, BCNF • Przykłady normalizacji i denormalizacji\n⸻\nWykład 5: Wprowadzenie do SQL – definicja danych (DDL) • Podstawowe elementy składni SQL • Tworzenie baz danych i tabel (CREATE DATABASE, CREATE TABLE) • Typy danych w SQL • Ograniczenia integralności (PRIMARY KEY, FOREIGN KEY, UNIQUE, CHECK, NOT NULL) • Modyfikacja schematu (ALTER TABLE, DROP TABLE)\n⸻\nWykład 6: SQL – manipulacja danymi (DML) • Wstawianie danych (INSERT) • Aktualizacja i usuwanie danych (UPDATE, DELETE) • Podstawowe zapytania (SELECT, FROM, WHERE) • Operatory logiczne i porównania • Operacje na zbiorach (UNION, INTERSECT, EXCEPT)\n⸻\nWykład 7: SQL – zapytania złożone i funkcje • Łączenia tabel (JOIN: INNER, LEFT, RIGHT, FULL) • Funkcje agregujące (COUNT, SUM, AVG, MIN, MAX) • Grupowanie i filtrowanie grup (GROUP BY, HAVING) • Podzapytania (subqueries) • Krótki wstęp do indeksów i wydajności zapytań"
   }
 ]

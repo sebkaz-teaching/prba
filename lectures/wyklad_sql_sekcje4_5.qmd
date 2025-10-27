@@ -1,0 +1,128 @@
+---
+title: "🧭 Wprowadzenie do optymalizacji zapytań SQL – Sekcje 4 i 5"
+format: html
+---
+
+## 🗂️ Sekcja 4 – Indeksy w SQL
+
+Indeksy to **podstawowe narzędzie optymalizacji zapytań**, które pozwala bazie danych szybko znaleźć potrzebne wiersze, bez konieczności skanowania całej tabeli.  
+Można je porównać do **spisu treści w książce** — zamiast czytać każdy rozdział, patrzymy od razu na właściwą stronę.
+
+### 🔹 Dlaczego indeksy są ważne?
+
+Bez indeksu baza danych musi sprawdzić każdy wiersz tabeli, by znaleźć pasujące rekordy (**sequential scan**).  
+Z indeksem, silnik może odczytać **tylko te dane**, które spełniają warunek — znacznie szybciej i przy mniejszym zużyciu zasobów.
+
+Korzyści z indeksów:
+
+- ⏱️ **Szybsze wyszukiwanie** danych, szczególnie w dużych tabelach  
+- 💾 **Ograniczenie operacji I/O**, bo baza czyta mniej bloków z dysku  
+- 🔄 **Przyspieszenie sortowania i łączenia tabel** (`JOIN`), jeśli indeks obejmuje kolumny używane w warunkach
+
+### 🔹 Rodzaje indeksów
+
+Najczęściej spotykane:
+
+1. **B-Tree (balanced tree)** – najpopularniejszy typ, sprawdza się w większości wyszukiwań, zakresów i sortowań  
+2. **Hash** – szybki dostęp po dokładnej wartości (nie obsługuje zakresów)  
+3. **Bitmap** – efektywny dla kolumn o małej liczbie unikalnych wartości, np. płeć lub status  
+4. **Kompozytowe** – obejmują kilka kolumn, przydatne przy filtrach i sortowaniach wielokolumnowych
+
+### 🔹 Co indeksuje?
+
+- **Kolumny używane w WHERE** – aby szybciej wyszukać dane  
+- **Kolumny używane w JOIN** – przyspiesza łączenie tabel  
+- **Kolumny w ORDER BY lub GROUP BY** – pomaga szybciej sortować i grupować wyniki  
+- **Kolumny unikalne lub klucze główne** – zapewnia integralność danych i przyspiesza wyszukiwanie
+
+### 🔹 Wady nadmiaru indeksów
+
+Indeksy przyspieszają odczyt, ale mają też koszty:
+
+- 🔄 **Spowolnienie operacji INSERT/UPDATE/DELETE**, bo indeksy trzeba aktualizować  
+- 💾 **Zwiększone zużycie pamięci i przestrzeni dyskowej**  
+- ⚖️ Trzeba wybrać **optymalny zestaw indeksów**, żeby nie pogorszyć ogólnej wydajności
+
+---
+
+## 🧪 Sekcja 5 – Praktyczne przykłady użycia indeksów
+
+W tej sekcji pokażemy, jak indeksy wpływają na plan wykonania zapytania i rzeczywisty czas wykonania.
+
+### 🔹 Przykład w PostgreSQL
+
+Mamy tabelę `orders`:
+
+```sql
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  customer_id INTEGER,
+  order_date DATE,
+  total DECIMAL
+);
+```
+
+#### Scenariusz A – brak indeksu
+
+```sql
+EXPLAIN ANALYZE
+SELECT * FROM orders WHERE customer_id = 42;
+```
+
+Wynik może wyglądać tak:
+
+```sql
+Seq Scan on orders  (cost=0.00..450.00 rows=3 width=48)
+  Filter: (customer_id = 42)
+Execution Time: 22.5 ms
+```
+
+> Baza przeszukuje całą tabelę (Seq Scan), co jest kosztowne przy dużej liczbie rekordów.
+
+#### Scenariusz B – z indeksem
+
+Dodajemy indeks na kolumnie `customer_id`:
+
+```sql
+CREATE INDEX idx_orders_customer ON orders(customer_id);
+```
+
+Po wykonaniu tego samego zapytania:
+
+```sql
+EXPLAIN ANALYZE
+SELECT * FROM orders WHERE customer_id = 42;
+```
+
+Plan wykonania:
+
+```sql
+Index Scan using idx_orders_customer on orders  (cost=0.29..8.50 rows=3 width=48)
+  Index Cond: (customer_id = 42)
+Execution Time: 0.030 ms
+```
+
+➡️ Widać ogromną poprawę wydajności: baza odczytuje tylko pasujące wiersze zamiast całej tabeli.
+
+### 🔹 Indeksy a JOIN
+
+Przy łączeniu tabel:
+
+```sql
+SELECT o.id, c.name
+FROM orders o
+JOIN customers c ON o.customer_id = c.id
+WHERE c.region = 'Europe';
+```
+
+- Indeks na `customers.id` i `orders.customer_id` przyspiesza JOIN  
+- Indeks na `customers.region` przyspiesza filtrowanie po regionie
+
+### 🔹 Wskazówki praktyczne
+
+- Twórz indeksy **tylko na kolumnach, które są często filtrowane lub sortowane**  
+- Analizuj plany wykonania przy użyciu `EXPLAIN` i `EXPLAIN ANALYZE`  
+- Zwracaj uwagę na **koszt operacji (cost=...)** i liczbę wierszy (`rows=...`)  
+- Pamiętaj o balansie: zbyt wiele indeksów może spowolnić zapis danych
+
+---
