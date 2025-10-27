@@ -177,18 +177,6 @@
     ]
   },
   {
-    "objectID": "lectures/wyklad6a.html#praktyczne-przykłady-użycia-indeksów",
-    "href": "lectures/wyklad6a.html#praktyczne-przykłady-użycia-indeksów",
-    "title": "🧭 Wprowadzenie do optymalizacji zapytań SQL",
-    "section": "🧪 Praktyczne przykłady użycia indeksów",
-    "text": "🧪 Praktyczne przykłady użycia indeksów\n\nIndeks na customer_id może przyspieszyć agregację\nIndeks kompozytowy z kolumną używaną w ORDER BY może wyeliminować dodatkowe sortowanie\n\n🔹 Wpływ indeksów na modyfikacje danych\n\nOperacje INSERT, UPDATE, DELETE wymagają aktualizacji indeksów\nZbyt wiele indeksów może spowolnić zapis danych\nW praktyce wybieramy najbardziej potrzebne indeksy i monitorujemy ich wpływ\n\n🔹 Wskazówki praktyczne\n\nTwórz indeksy tylko na kolumnach często filtrowanych lub sortowanych\nAnalizuj plany wykonania (EXPLAIN, EXPLAIN ANALYZE)\nZwracaj uwagę na koszt operacji (cost=…) i liczbę wierszy (rows=…)\nRównoważ czas odczytu i zapis danych – nie każdy indeks jest opłacalny",
-    "crumbs": [
-      "Książki",
-      "Wykłady",
-      "🧭 Wprowadzenie do optymalizacji zapytań SQL"
-    ]
-  },
-  {
     "objectID": "lectures/wyklad4.html",
     "href": "lectures/wyklad4.html",
     "title": "Model Relacyjny i podstawy SQL",
