@@ -68,6 +68,7 @@ Normalizacja to proces przekształcania tabel w taki sposób, aby **usunąć red
 ✅ *Każda kolumna ma jedną wartość w komórce.*
 
 **Przykład (naruszenie 1NF):**
+
 | Student | NrIndeksu | Kursy |
 |----------|------------|--------|
 | Jan Nowak | 12345 | Bazy danych, Programowanie |
@@ -101,14 +102,6 @@ NrIndeksu → Kierunek, Kierunek → Dziekan
 ➡️ *Dziekan* zależy pośrednio od *NrIndeksu*.  
 Rozwiązanie: osobna tabela KIERUNEK(Dziekan, Kierunek).
 
----
-
-### 🧩 Postać Boyce’a-Codda (BCNF)
-
-- Dla każdej zależności A → B, zbiór A musi być **kluczem kandydującym**.  
-- Bardziej restrykcyjna niż 3NF – eliminuje wszelkie potencjalne redundancje.
-
----
 
 ## 4. Diagramy ERD (Entity–Relationship Diagram)
 
@@ -146,7 +139,6 @@ Projektowanie bazy to proces etapowy:
 2. **Model konceptualny** – opis danych w postaci ERD.  
 3. **Model logiczny** – zamiana modelu ERD na relacyjny schemat tabel.  
 4. **Model fizyczny** – implementacja w konkretnym systemie DBMS (np. PostgreSQL, MySQL).
-
 
 
 
