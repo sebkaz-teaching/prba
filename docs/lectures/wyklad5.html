@@ -204,8 +204,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lectures/wyklad6a.html" class="sidebar-item-text sidebar-link">
+  <a href="../lectures/wyklad6.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">🧭 Wprowadzenie do optymalizacji zapytań SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/wyklad7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Podzapytania (Subqueries) i Widoki (Views) w SQL</span></a>
   </div>
 </li>
       </ul>
@@ -323,7 +329,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Brak list, zbiorów lub kolumn powtarzających się.</li>
 </ul>
 <p>✅ <em>Każda kolumna ma jedną wartość w komórce.</em></p>
-<p><strong>Przykład (naruszenie 1NF):</strong> | Student | NrIndeksu | Kursy | |———-|————|——–| | Jan Nowak | 12345 | Bazy danych, Programowanie |</p>
+<p><strong>Przykład (naruszenie 1NF):</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Student</th>
+<th>NrIndeksu</th>
+<th>Kursy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Jan Nowak</td>
+<td>12345</td>
+<td>Bazy danych, Programowanie</td>
+</tr>
+</tbody>
+</table>
 <p>✅ <em>Poprawnie:</em><br>
 Tworzymy osobną tabelę STUDENT_KURS, gdzie każdy kurs to osobny rekord.</p>
 <hr>
@@ -352,16 +374,6 @@ Rozwiązanie: wydziel tabelę KURS(KursID, Sala).</p>
 <p>NrIndeksu → Kierunek, Kierunek → Dziekan<br>
 ➡️ <em>Dziekan</em> zależy pośrednio od <em>NrIndeksu</em>.<br>
 Rozwiązanie: osobna tabela KIERUNEK(Dziekan, Kierunek).</p>
-<hr>
-</section>
-<section id="postać-boycea-codda-bcnf" class="level3">
-<h3 class="anchored" data-anchor-id="postać-boycea-codda-bcnf">🧩 Postać Boyce’a-Codda (BCNF)</h3>
-<ul>
-<li>Dla każdej zależności A → B, zbiór A musi być <strong>kluczem kandydującym</strong>.<br>
-</li>
-<li>Bardziej restrykcyjna niż 3NF – eliminuje wszelkie potencjalne redundancje.</li>
-</ul>
-<hr>
 </section>
 </section>
 <section id="diagramy-erd-entityrelationship-diagram" class="level2">

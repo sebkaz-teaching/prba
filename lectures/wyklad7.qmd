@@ -1,0 +1,393 @@
+---
+title: "Podzapytania (Subqueries) i Widoki (Views) w SQL"
+---
+
+# 1️⃣3️⃣ Podzapytania (Subqueries) w SQL
+
+Podzapytanie to **zapytanie wewnątrz innego zapytania SQL**. 
+Służy do wykonywania bardziej złożonych operacji, kiedy jedno zapytanie potrzebuje wyników innego.  
+Możemy je traktować jak „mini-zapytania”, które dostarczają danych do zapytania głównego.
+
+Podzapytania mogą występować w różnych miejscach:
+
+- w klauzuli **WHERE** – do filtrowania danych,
+- w klauzuli **FROM** – jako tymczasowa tabela,
+- w klauzuli **SELECT** – do obliczeń w każdej krotce,
+- w konstrukcjach **EXISTS**, **IN**, **ALL**, **ANY** – do testowania warunków logicznych.
+
+
+## 🔹 1. Podzapytanie w klauzuli WHERE (jednowartościowe)
+
+To najczęstszy typ podzapytania.  
+Zapytanie główne wybiera dane na podstawie **wartości zwróconej przez podzapytanie**.
+
+### 🧩 Przykład:
+
+Znajdź książki napisane przez autora o nazwisku *Sienkiewicz*.
+
+```sql
+SELECT tytul, rok
+FROM Ksiazki
+WHERE autor_id = (
+    SELECT autor_id
+    FROM Autorzy
+    WHERE nazwisko = 'Sienkiewicz'
+);
+```
+
+### 📘 Opis działania:
+
+1.	Podzapytanie wewnętrzne szuka identyfikatora autora autor_id, którego nazwisko to Sienkiewicz.
+2.	Zapytanie główne wybiera z tabeli Ksiazki tylko te rekordy, w których autor_id jest równy wynikowi podzapytania.
+
+> 🔸 Takie podzapytanie musi zwrócić jedną wartość (scalar subquery) – w przeciwnym razie wystąpi błąd.
+
+## 🔹 2. Podzapytanie zwracające wiele wartości (operator IN)
+
+Jeśli podzapytanie zwraca więcej niż jeden rekord, używamy operatora IN.
+
+### 🧩 Przykład:
+
+Znajdź wszystkie książki autorów, których nazwiska zaczynają się na literę M.
+
+```sql
+SELECT tytul, rok
+FROM Ksiazki
+WHERE autor_id IN (
+    SELECT autor_id
+    FROM Autorzy
+    WHERE nazwisko LIKE 'M%'
+);
+```
+
+### 📘 Opis działania:
+
+- Podzapytanie wewnętrzne zwraca listę identyfikatorów autorów, np. [1, 5, 7].
+- Zapytanie główne wybiera książki, których autor_id znajduje się na tej liście.
+
+> 🔸 Operator IN można traktować jak porównanie z „wieloma wartościami jednocześnie”.
+
+
+## 🔹 3. Podzapytanie w klauzuli SELECT
+
+Podzapytanie może też zwracać pojedynczą wartość (skalarną) i być użyte w liście kolumn.
+
+### 🧩 Przykład:
+
+Wyświetl listę autorów wraz z liczbą ich książek.
+
+```sql
+SELECT
+    a.imie,
+    a.nazwisko,
+    (
+        SELECT COUNT(*)
+        FROM Ksiazki k
+        WHERE k.autor_id = a.autor_id
+    ) AS liczba_ksiazek
+FROM Autorzy a;
+
+```
+
+### 📘 Opis działania:
+
+- Dla każdego autora (a.autor_id) wykonuje się osobne podzapytanie,
+które liczy książki przypisane do tego autora.
+- Wynik jest dodawany jako nowa kolumna liczba_ksiazek.
+
+> 🔸 To tzw. podzapytanie skorelowane (correlated subquery), ponieważ odnosi się do kolumny z zapytania głównego.
+
+## 🔹 4. Podzapytanie w klauzuli FROM (tabela pochodna)
+
+Podzapytanie może tworzyć tymczasową tabelę w sekcji FROM.
+Takie rozwiązanie nazywa się derived table i pozwala na pracę z przetworzonymi danymi.
+
+### 🧩 Przykład:
+
+Policz średni rok wydania książek, a następnie wybierz te, które są starsze od średniej.
+
+```sql
+SELECT tytul, rok
+FROM (
+    SELECT *
+    FROM Ksiazki
+) AS K
+WHERE K.rok < (
+    SELECT AVG(rok) FROM Ksiazki
+);
+```
+
+### 📘 Opis działania:
+
+- Podzapytanie w FROM tworzy tymczasową tabelę K.
+- W klauzuli WHERE używamy innego podzapytania, które liczy średni rok wydania.
+- Wynik to książki starsze od średniej publikacji.
+
+## 🔹 5. Korelowane podzapytanie (correlated subquery)
+
+To podzapytanie, które odwołuje się do kolumn z zapytania głównego.
+Wykonuje się dla każdego wiersza osobno – dlatego bywa wolniejsze, ale bardzo elastyczne.
+
+### 🧩 Przykład:
+
+Znajdź najstarszą książkę każdego autora.
+
+```sql
+SELECT k.tytul, k.rok, a.nazwisko
+FROM Ksiazki k
+JOIN Autorzy a ON k.autor_id = a.autor_id
+WHERE k.rok = (
+    SELECT MIN(rok)
+    FROM Ksiazki
+    WHERE autor_id = k.autor_id
+);
+
+```
+
+### 📘 Opis działania:
+
+- Dla każdego wiersza w tabeli Ksiazki podzapytanie szuka najmniejszego roku dla tego samego autora.
+- Porównanie k.rok = (MIN(rok)) sprawia, że zostaje tylko najstarsza książka każdego autora.
+
+## 🔹 6. Podzapytanie z EXISTS
+
+Operator EXISTS sprawdza, czy podzapytanie zwróciło jakiekolwiek wiersze.
+Nie liczy ich — interesuje nas jedynie, czy wynik istnieje (TRUE/FALSE).
+
+### 🧩 Przykład:
+
+Znajdź autorów, którzy napisali przynajmniej jedną książkę.
+```sql
+SELECT imie, nazwisko
+FROM Autorzy a
+WHERE EXISTS (
+    SELECT 1
+    FROM Ksiazki k
+    WHERE k.autor_id = a.autor_id
+);
+
+```
+
+### 📘 Opis działania:
+
+- Dla każdego autora sprawdzane jest, czy istnieje co najmniej jeden wiersz w tabeli Ksiazki z tym samym autor_id.
+- Jeśli tak — warunek EXISTS zwraca TRUE, a autor pojawia się w wyniku.
+
+
+## 🔹 7. Porównania z ALL / ANY
+
+Operator ALL wymaga, aby warunek był spełniony dla wszystkich wyników podzapytania.
+Operator ANY (lub SOME) – aby warunek był spełniony dla przynajmniej jednego.
+
+### 🧩 Przykład:
+
+Znajdź książki wydane wcześniej niż wszystkie książki Prusa.
+```sql
+SELECT tytul, rok
+FROM Ksiazki
+WHERE rok < ALL (
+    SELECT rok
+    FROM Ksiazki
+    WHERE autor_id = (
+        SELECT autor_id FROM Autorzy WHERE nazwisko = 'Prus'
+    )
+);
+```
+
+### 📘 Opis działania:
+
+- Podzapytanie wewnętrzne zwraca lata publikacji książek Prusa.
+- Zapytanie główne wybiera tylko te książki, których rok jest mniejszy niż wszystkie te wartości.
+
+
+
+### 🧮 Podsumowanie typów podzapytań w SQL
+
+| **Typ podzapytania** | **Miejsce użycia** | **Zwracany wynik** | **Typowe operatory** | **Przykład zastosowania** |
+|------------------------|--------------------|--------------------|----------------------|----------------------------|
+| **Jednowartościowe (scalar)** | `WHERE`, `SELECT` | Pojedyncza wartość (1 rekord, 1 kolumna) | `=`, `<`, `>` | Autor o nazwisku „Sienkiewicz” |
+| **Wielowartościowe (multivalue)** | `WHERE` | Lista wartości (wiele rekordów) | `IN`, `NOT IN` | Autorzy, których nazwisko zaczyna się na „M” |
+| **Korelowane (correlated)** | `WHERE`, `SELECT` | Zmienny wynik dla każdego wiersza | `=`, `EXISTS` | Najstarsza książka danego autora |
+| **Zagnieżdżone w FROM (tabela pochodna)** | `FROM` | Zbiór wierszy (tymczasowa tabela) | — | Średni rok wydania książek i porównanie ze średnią |
+| **Z operatorem EXISTS / NOT EXISTS** | `WHERE` | Prawda / Fałsz (czy istnieje wynik) | `EXISTS`, `NOT EXISTS` | Autorzy, którzy napisali przynajmniej jedną książkę |
+| **Z operatorem ALL / ANY / SOME** | `WHERE` | Porównanie z wieloma wartościami | `ALL`, `ANY`, `SOME` | Książki starsze niż wszystkie książki Prusa |
+
+
+# 1️⃣4️⃣ Widoki (VIEW) w SQL
+
+Widoki (ang. *views*) to **wirtualne tabele**, które przechowują **zdefiniowane zapytania SQL**.  
+Nie przechowują one fizycznie danych – jedynie **zapamiętują zapytanie**, które można później traktować tak, jakby było tabelą.
+
+Widok jest więc **logiczna reprezentacją** danych, utworzoną na podstawie jednej lub kilku tabel.  
+Dzięki widokom można:
+- uprościć skomplikowane zapytania,
+- ukryć złożoność bazy przed użytkownikiem,
+- zwiększyć bezpieczeństwo (np. pokazywać tylko wybrane kolumny),
+- tworzyć „stałe raporty” z danych dynamicznych.
+
+---
+
+## 🔹 1. Tworzenie widoku
+
+Widok tworzymy za pomocą polecenia `CREATE VIEW`.
+
+### Przykład:
+Utwórz widok wyświetlający listę książek wraz z nazwiskiem autora.
+
+```sql
+CREATE VIEW Widok_Ksiazki_Autorzy AS
+SELECT
+    k.tytul,
+    k.rok,
+    a.imie,
+    a.nazwisko
+FROM Ksiazki k
+JOIN Autorzy a ON k.autor_id = a.autor_id;
+```
+
+➡️ Po utworzeniu widoku można z niego korzystać tak, jak z każdej innej tabeli:
+
+```sql
+SELECT * FROM Widok_Ksiazki_Autorzy;
+```
+
+## 🔹 2. Widoki jako warstwa abstrakcji
+
+Widoki działają jak poziom pośredni między użytkownikiem a fizyczną strukturą bazy danych.
+Użytkownik nie musi znać szczegółów łączenia tabel, kluczy obcych czy kolumn — wystarczy, że zna nazwę widoku.
+
+### Przykład:
+
+Widok pokazujący tylko podstawowe dane o książkach:
+```sql
+CREATE VIEW Widok_Biblioteka_Publiczna AS
+SELECT tytul, rok
+FROM Ksiazki;
+```
+
+➡️ Użytkownik może wykonać:
+```sql
+SELECT * FROM Widok_Biblioteka_Publiczna;
+
+```
+i otrzymać uproszczony zestaw danych bez dostępu do tabel źródłowych.
+
+## 🔹 3. Widoki oparte na podzapytaniach
+
+Widoki mogą zawierać podzapytania — dzięki temu można tworzyć widoki analityczne, raportowe, czy agregujące dane.
+
+### Przykład:
+
+Widok pokazujący liczbę książek napisanych przez każdego autora:
+
+```sql
+CREATE VIEW Widok_LiczbaKsiazek AS
+SELECT
+    a.autor_id,
+    a.imie,
+    a.nazwisko,
+    COUNT(k.ksiazka_id) AS liczba_ksiazek
+FROM Autorzy a
+LEFT JOIN Ksiazki k ON a.autor_id = k.autor_id
+GROUP BY a.autor_id, a.imie, a.nazwisko;
+```
+
+➡️ Następnie możemy wykonać:
+
+```sqml
+SELECT * FROM Widok_LiczbaKsiazek WHERE liczba_ksiazek > 3;
+```
+
+## 🔹 4. Aktualizowalność widoków
+
+Nie każdy widok można modyfikować (czyli wykonywać INSERT, UPDATE, DELETE).
+
+Widoki są aktualizowalne, jeśli:
+
+- odnoszą się tylko do jednej tabeli,
+- nie zawierają GROUP BY, DISTINCT, UNION, HAVING ani funkcji agregujących,
+- nie zawierają podzapytań w klauzuli SELECT.
+
+Jeśli widok jest bardziej złożony (np. z JOIN lub GROUP BY), staje się tylko do odczytu.
+
+### Przykład – widok aktualizowalny:
+```sql
+CREATE VIEW Widok_AutorzyPodstawowi AS
+SELECT autor_id, imie, nazwisko
+FROM Autorzy;
+```
+Możemy:
+
+```sql
+UPDATE Widok_AutorzyPodstawowi
+SET nazwisko = 'Nowak'
+WHERE autor_id = 1;
+```
+
+## 🔹 5. Usuwanie i modyfikacja widoków
+
+Aby usunąć widok:
+```sql
+DROP VIEW Widok_LiczbaKsiazek;
+```
+Aby zmienić definicję widoku:
+```sql
+CREATE OR REPLACE VIEW Widok_LiczbaKsiazek AS
+SELECT nazwisko, COUNT(*) AS liczba
+FROM Autorzy a
+JOIN Ksiazki k ON a.autor_id = k.autor_id
+GROUP BY nazwisko;
+```
+
+## 🔹 6. Zalety i wady widoków
+
+✅ Zalety:
+
+- Uproszczenie złożonych zapytań (abstrakcja)
+- Zwiększenie bezpieczeństwa – ograniczony dostęp do danych
+- Reużywalność – jedno miejsce definicji raportu
+- Możliwość definiowania logicznych perspektyw danych
+
+⚠️ Wady:
+
+- Wydajność – każde odwołanie do widoku powoduje wykonanie zapytania źródłowego
+- Ograniczona aktualizowalność
+- Złożone widoki mogą utrudniać debugowanie i optymalizację
+
+### 🧩 Przykład praktyczny – widok zagnieżdżony
+
+Widoki można zagnieżdżać – jeden widok może korzystać z innego.
+```sql
+CREATE VIEW Widok_StarsiAutorzy AS
+SELECT autor_id, imie, nazwisko
+FROM Autorzy
+WHERE rok_urodzenia < 1950;
+
+CREATE VIEW Widok_StarsiAutorzy_LiczbaKsiazek AS
+SELECT
+    sa.imie,
+    sa.nazwisko,
+    COUNT(k.ksiazka_id) AS liczba_ksiazek
+FROM Widok_StarsiAutorzy sa
+JOIN Ksiazki k ON sa.autor_id = k.autor_id
+GROUP BY sa.imie, sa.nazwisko;
+
+```
+
+➡️ Teraz możesz wykonać:
+```sql
+
+SELECT * FROM Widok_StarsiAutorzy_LiczbaKsiazek
+WHERE liczba_ksiazek > 2;
+```
+
+
+Widoki pozwalają budować hierarchię logicznych perspektyw danych — od prostych po analityczne.
+
+## 📘 Najważniejsze wnioski
+
+- Widoki nie przechowują danych, lecz definicję zapytania.
+- Można je traktować jak „tabele wirtualne”.
+- Ułatwiają zarządzanie dostępem do danych i tworzenie raportów.
+- Proste widoki są aktualizowalne, złożone — tylko do odczytu.
+- Można je zagnieżdżać, tworząc coraz bardziej rozbudowane analizy.
