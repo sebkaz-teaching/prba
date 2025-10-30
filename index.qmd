@@ -17,8 +17,13 @@ Semestr: zimowy
 3. <del>09.10.2025 Czwartek     8.00 - 9.30. b 61 s 104</del>
 4. <del>16.10.2025 Czwartek     8.00 - 9.30. b 61 s 104</del>
 5. <del> 21.10.2025 Wtorek 8.00 - 9.35 b 61 s 116</del>
-6. 27.10.2025 Poniedziałek 9.50 - 11.25 b 61 s 104
-7. 30.10.2025 Czwartek     8.00 - 9.30. b 61 s 104
+6. <del>27.10.2025 Poniedziałek 9.50 - 11.25 b 61 s 104</del>
+7. <del>30.10.2025 Czwartek     8.00 - 9.30. b 61 s 104</del>
 
 
 ### Laboratorium: 
+
+1. 20.11.2025 Czwartek (5-6-7-8) 4h b 61 s 104
+2. 27.11.2025 Czwartek (5-6-7-8) 4h b 61 s 104
+3. 08.12.2025 Poniedziałek (5-6-7-8) 4h b 61 s 104 
+4. 22.01.2026 Czwartek (1-2-3-4) 4 h b 61 s 104
