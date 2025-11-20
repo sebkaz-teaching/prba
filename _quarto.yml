@@ -19,15 +19,12 @@ website:
           - lectures/wyklad5.qmd
           - lectures/wyklad6.qmd
           - lectures/wyklad7.qmd
-      # - section: "Ćwiczenia"
-      #   contents:
-          # - cwiczenia/cw1.ipynb
+      - section: "Ćwiczenia"
+        contents:
+          - cwiczenia/cw1.ipynb
           # - cwiczenia/cw2.ipynb
           # - cwiczenia/cw3.ipynb
           # - cwiczenia/cw4.ipynb
-          # - cwiczenia/cw5.ipynb
-          # - cwiczenia/ml.ipynb
-          # - cwiczenia/titanic.ipynb
   navbar:
     left:
           - href: ksiazki.qmd
