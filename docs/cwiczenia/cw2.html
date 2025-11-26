@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Serwer baz danych – Projektowanie Relacyjnych Baz Danych</title>
+<title>Serwer baz danych - PostgreSQL – Projektowanie Relacyjnych Baz Danych</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -141,7 +141,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../cwiczenia/cw1.html">Ćwiczenia</a></li><li class="breadcrumb-item"><a href="../cwiczenia/cw2.html">Serwer baz danych</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../cwiczenia/cw1.html">Ćwiczenia</a></li><li class="breadcrumb-item"><a href="../cwiczenia/cw2.html">Serwer baz danych - PostgreSQL</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -234,7 +234,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../cwiczenia/cw2.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Serwer baz danych</span></a>
+ <span class="menu-text">Serwer baz danych - PostgreSQL</span></a>
   </div>
 </li>
       </ul>
@@ -264,9 +264,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../cwiczenia/cw1.html">Ćwiczenia</a></li><li class="breadcrumb-item"><a href="../cwiczenia/cw2.html">Serwer baz danych</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../cwiczenia/cw1.html">Ćwiczenia</a></li><li class="breadcrumb-item"><a href="../cwiczenia/cw2.html">Serwer baz danych - PostgreSQL</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Serwer baz danych</h1>
+<h1 class="title">Serwer baz danych - PostgreSQL</h1>
 </div>
 
 
@@ -534,6 +534,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Stwórz indeks na kolumnie last_name w tabeli teachers.</li>
 <li>Uruchom poniższe zapytanie, używając funkcji systemowej EXPLAIN ANALYZE w pgAdmin.</li>
 </ol>
+<p>W raporcie zwróć uwagę na:</p>
+<p>Planning Time i Execution Time.</p>
+<p>Czy pojawiła się fraza Index Scan lub Bitmap Heap Scan z odwołaniem do idx_teachers_last_name? Jeśli tak, indeks został użyty.</p>
+<p>Gdybyś usunął indeks (DROP INDEX idx_teachers_last_name;) i powtórzył zapytanie, w raporcie prawdopodobnie pojawiłoby się Seq Scan (skan sekwencyjny). Porównaj czasy wykonania.</p>
 
 
 </section>
