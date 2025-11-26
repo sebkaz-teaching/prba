@@ -228,7 +228,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../cwiczenia/cw1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">📘 Wprowadzenie: od prostych plików do systemów zarządzania bazami danych</span></a>
+ <span class="menu-text">📘 od plików płsakich do systemów zarządzania bazami danych</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -292,102 +292,110 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Poniższy materiał omawia podstawowe operacje na bazie danych, wykorzystując przykładową tabelę teachers. Zawiera również propozycje bardziej zaawansowanych ćwiczeń, w tym tworzenie indeksów i wykorzystanie zagnieżdżonych zapytań (Subqueries), oraz odniesienia do funkcji systemowych PostgreSQL.</p>
 <p>Polecenie SQL,Opis CREATE TABLE teachers,Tworzy tabelę przechowującą dane o nauczycielach. INSERT INTO teachers,Dodaje rekordy (wiersze) do tabeli. SELECT * FROM teachers,Wyświetla wszystkie dane ze wszystkich kolumn w tabeli.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> teachers (</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">id</span> bigserial,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">id</span> bigserial <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    first_name <span class="dt">varchar</span>(<span class="dv">25</span>),</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    last_name <span class="dt">varchar</span>(<span class="dv">50</span>),</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    school <span class="dt">varchar</span>(<span class="dv">50</span>),</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    hire_date <span class="dt">date</span>,</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    salary <span class="dt">numeric</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Przykładowe dane</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> teachers (first_name, last_name, school, hire_date, salary)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">VALUES</span> (<span class="st">'Janet'</span>, <span class="st">'Smith'</span>, <span class="st">'F.D. Roosevelt HS'</span>, <span class="st">'2011-10-30'</span>, <span class="dv">36200</span>), </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>(<span class="st">'Lee'</span>, <span class="st">'Reynolds'</span>, <span class="st">'F.D. Roosevelt HS'</span>, <span class="st">'1993-05-22'</span>, <span class="dv">65000</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>(<span class="st">'Samuel'</span>, <span class="st">'Cole'</span>, <span class="st">'Myers Middle School'</span>, <span class="st">'2005-08-01'</span>, <span class="dv">43500</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>(<span class="st">'Samantha'</span>, <span class="st">'Bush'</span>, <span class="st">'Myers Middle School'</span>, <span class="st">'2011-10-30'</span>, <span class="dv">36200</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>(<span class="st">'Betty'</span>, <span class="st">'Diaz'</span>, <span class="st">'Myers Middle School'</span>, <span class="st">'2005-08-30'</span>, <span class="dv">43500</span>),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>(<span class="st">'Kathleen'</span>, <span class="st">'Roush'</span>, <span class="st">'F.D. Roosevelt HS'</span>, <span class="st">'2010-10-22'</span>, <span class="dv">38500</span>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <section id="filtrowanie-i-sortowanie-danych" class="level3">
-<h3 class="anchored" data-anchor-id="filtrowanie-i-sortowanie-danych">2. Filtrowanie i Sortowanie Danych</h3>
+<h3 class="anchored" data-anchor-id="filtrowanie-i-sortowanie-danych">Filtrowanie i Sortowanie Danych</h3>
 <section id="filtrowanie-kolumn-select" class="level4">
-<h4 class="anchored" data-anchor-id="filtrowanie-kolumn-select">2.1. Filtrowanie Kolumn (SELECT)</h4>
+<h4 class="anchored" data-anchor-id="filtrowanie-kolumn-select">Filtrowanie Kolumn (SELECT)</h4>
 <p>Wybranie tylko konkretnych kolumn jest pierwszą zasadą optymalizacji zapytań – wybieraj tylko to, co jest potrzebne.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> last_name, first_name, salary <span class="kw">FROM</span> teachers;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> last_name, first_name, salary <span class="kw">FROM</span> teachers;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="sortowanie-order-by" class="level3">
-<h3 class="anchored" data-anchor-id="sortowanie-order-by">2.2. Sortowanie (ORDER BY)</h3>
+<h3 class="anchored" data-anchor-id="sortowanie-order-by">Sortowanie (ORDER BY)</h3>
 <p>Pozwala uporządkować wyniki. DESC (Descending) oznacza malejąco, ASC (Ascending) oznacza rosnąco (domyślne). Sortowanie można wykonać po nazwie kolumny, lub po jej numerze porządkowym (licząc od 1).</p>
 <section id="sortowanie-malejąco-po-pensji." class="level4">
 <h4 class="anchored" data-anchor-id="sortowanie-malejąco-po-pensji.">Sortowanie malejąco po pensji.</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> first_name, last_name, salary <span class="kw">FROM</span> teachers <span class="kw">ORDER</span> <span class="kw">BY</span> salary <span class="kw">DESC</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> first_name, last_name, salary <span class="kw">FROM</span> teachers <span class="kw">ORDER</span> <span class="kw">BY</span> salary <span class="kw">DESC</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sortowanie-malejąco-po-trzeciej-kolumnie-salary." class="level4">
 <h4 class="anchored" data-anchor-id="sortowanie-malejąco-po-trzeciej-kolumnie-salary.">Sortowanie malejąco po trzeciej kolumnie (salary).</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> first_name, last_name, salary <span class="kw">FROM</span> teachers <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">3</span> <span class="kw">DESC</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> first_name, last_name, salary <span class="kw">FROM</span> teachers <span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">3</span> <span class="kw">DESC</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sortowanie-po-wielu-kolumnach-najpierw-rosnąco-wg-szkoły-a-w-ramach-szkoły-malejąco-wg-daty-zatrudnienia." class="level4">
 <h4 class="anchored" data-anchor-id="sortowanie-po-wielu-kolumnach-najpierw-rosnąco-wg-szkoły-a-w-ramach-szkoły-malejąco-wg-daty-zatrudnienia.">Sortowanie po wielu kolumnach: najpierw rosnąco wg szkoły, a w ramach szkoły malejąco wg daty zatrudnienia.</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> last_name, school, hire_date <span class="kw">FROM</span> teachers <span class="kw">ORDER</span> <span class="kw">BY</span> school <span class="kw">ASC</span>, hire_date <span class="kw">DESC</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> last_name, school, hire_date <span class="kw">FROM</span> teachers <span class="kw">ORDER</span> <span class="kw">BY</span> school <span class="kw">ASC</span>, hire_date <span class="kw">DESC</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="eliminacja-duplikatów-distinct" class="level3">
-<h3 class="anchored" data-anchor-id="eliminacja-duplikatów-distinct">2.3. Eliminacja Duplikatów (DISTINCT)</h3>
+<h3 class="anchored" data-anchor-id="eliminacja-duplikatów-distinct">Eliminacja Duplikatów (DISTINCT)</h3>
 <p>Używane do wyświetlenia unikalnych wartości.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Wyświetl unikalne nazwy szkół</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> school <span class="kw">FROM</span> teachers <span class="kw">ORDER</span> <span class="kw">BY</span> school;</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- Wyświetl unikalne kombinacje szkoły i pensji</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> school, salary <span class="kw">FROM</span> teachers <span class="kw">ORDER</span> <span class="kw">BY</span> school, salary;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Wyświetl unikalne nazwy szkół</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> school <span class="kw">FROM</span> teachers <span class="kw">ORDER</span> <span class="kw">BY</span> school;</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- Wyświetl unikalne kombinacje szkoły i pensji</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> school, salary <span class="kw">FROM</span> teachers <span class="kw">ORDER</span> <span class="kw">BY</span> school, salary;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="filtrowanie-wierszy-where" class="level3">
-<h3 class="anchored" data-anchor-id="filtrowanie-wierszy-where">3. Filtrowanie Wierszy (WHERE)</h3>
+<h3 class="anchored" data-anchor-id="filtrowanie-wierszy-where">Filtrowanie Wierszy (WHERE)</h3>
 <p>Klucz do precyzyjnego pobierania danych.</p>
 <section id="równość" class="level4">
 <h4 class="anchored" data-anchor-id="równość">Równość (=),</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> school <span class="op">=</span> <span class="st">'Myers Middle School'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> school <span class="op">=</span> <span class="st">'Myers Middle School'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Wybiera nauczycieli z konkretnej szkoły.</p>
 </section>
 <section id="różność-lub" class="level4">
 <h4 class="anchored" data-anchor-id="różność-lub">Różność (&lt;&gt; lub !=),</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> school <span class="op">&lt;&gt;</span> <span class="st">'F.D. Roosevelt HS'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> school <span class="op">&lt;&gt;</span> <span class="st">'F.D. Roosevelt HS'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Wybiera nauczycieli ze wszystkich szkół oprócz podanej.</p>
 </section>
 <section id="porównanie" class="level4">
 <h4 class="anchored" data-anchor-id="porównanie">Porównanie (&lt;, &gt;, &lt;=, &gt;=)</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> hire_date <span class="op">&lt;</span> <span class="st">'2000-01-01'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>,Wybiera zatrudnionych przed 2000 rokiem.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> hire_date <span class="op">&lt;</span> <span class="st">'2000-01-01'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>wybiera zatrudnionych przed 2000 rokiem.</p>
 </section>
 <section id="zakres-between" class="level4">
 <h4 class="anchored" data-anchor-id="zakres-between">Zakres (BETWEEN)</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> salary <span class="kw">BETWEEN</span> <span class="dv">40000</span> <span class="kw">AND</span> <span class="dv">65000</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>,Wybiera pensje włącznie z krańcami zakresu (równoważne: salary &gt;= 40000 AND salary &lt;= 65000).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> salary <span class="kw">BETWEEN</span> <span class="dv">40000</span> <span class="kw">AND</span> <span class="dv">65000</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>wybiera pensje włącznie z krańcami zakresu (równoważne: salary &gt;= 40000 AND salary &lt;= 65000).</p>
 </section>
 <section id="wzorce-like-ilike" class="level4">
 <h4 class="anchored" data-anchor-id="wzorce-like-ilike">Wzorce (LIKE / ILIKE)</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> first_name <span class="kw">LIKE</span> <span class="st">'sam%'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> first_name <span class="kw">LIKE</span> <span class="st">'sam%'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>lub</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> first_name ILIKE <span class="st">'sam%'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>,LIKE jest czułe na wielkość liter;</p>
-<p>ILIKE jest nieczułe na wielkość liter (preferowane w PostgreSQL).</p>
-<p>% oznacza dowolną liczbę znaków.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> first_name ILIKE <span class="st">'sam%'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>LIKE</code> jest czułe na wielkość liter;</p>
+<p><code>ILIKE</code> jest nieczułe na wielkość liter (preferowane w PostgreSQL).</p>
+<p><code>%</code> oznacza dowolną liczbę znaków.</p>
 </section>
 </section>
 <section id="operatory-logiczne-and-or" class="level3">
-<h3 class="anchored" data-anchor-id="operatory-logiczne-and-or">3.1. Operatory Logiczne (AND, OR)</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- AND: Oba warunki muszą być spełnione</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> teachers</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> school <span class="op">=</span> <span class="st">'Myers Middle School'</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> salary <span class="op">&lt;</span> <span class="dv">40000</span>;</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- OR: Wystarczy, że jeden warunek jest spełniony</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> teachers</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> last_name <span class="op">=</span> <span class="st">'Cole'</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="kw">OR</span> last_name <span class="op">=</span> <span class="st">'Bush'</span>;</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">-- Łączenie AND i OR (nawiasy są kluczowe!)</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> teachers</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> school <span class="op">=</span> <span class="st">'F.D. Roosevelt HS'</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> (salary <span class="op">&lt;</span> <span class="dv">38000</span> <span class="kw">OR</span> salary <span class="op">&gt;</span> <span class="dv">40000</span>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h3 class="anchored" data-anchor-id="operatory-logiczne-and-or">Operatory Logiczne (AND, OR)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- AND: Oba warunki muszą być spełnione</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> teachers</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> school <span class="op">=</span> <span class="st">'Myers Middle School'</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> salary <span class="op">&lt;</span> <span class="dv">40000</span>;</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- OR: Wystarczy, że jeden warunek jest spełniony</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> teachers</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> last_name <span class="op">=</span> <span class="st">'Cole'</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="kw">OR</span> last_name <span class="op">=</span> <span class="st">'Bush'</span>;</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">-- Łączenie AND i OR (nawiasy są kluczowe!)</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> teachers</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> school <span class="op">=</span> <span class="st">'F.D. Roosevelt HS'</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> (salary <span class="op">&lt;</span> <span class="dv">38000</span> <span class="kw">OR</span> salary <span class="op">&gt;</span> <span class="dv">40000</span>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="wyszukiwanie-z-wzorem-like-z" class="level3">
-<h3 class="anchored" data-anchor-id="wyszukiwanie-z-wzorem-like-z">3.2. Wyszukiwanie z Wzorem (LIKE z %)</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> first_name, last_name, school, hire_date, salary</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> teachers</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> school <span class="kw">LIKE</span> <span class="st">'%Roos%'</span> <span class="co">-- Znajduje szkoły, w których nazwie występuje 'Roos'</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> hire_date <span class="kw">DESC</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="wyszukiwanie-ze-wzorem-like-z" class="level3">
+<h3 class="anchored" data-anchor-id="wyszukiwanie-ze-wzorem-like-z">Wyszukiwanie ze wzorem (LIKE z %)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> first_name, last_name, school, hire_date, salary</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> teachers</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> school <span class="kw">LIKE</span> <span class="st">'%Roos%'</span> <span class="co">-- Znajduje szkoły, w których nazwie występuje 'Roos'</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> hire_date <span class="kw">DESC</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="zaawansowane-subqueries-joins-indexing" class="level2">
@@ -395,50 +403,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="proponowane-nowe-tabele" class="level3">
 <h3 class="anchored" data-anchor-id="proponowane-nowe-tabele">Proponowane Nowe Tabele</h3>
 <p>Aby umożliwić ćwiczenie relacji i zapytań zagnieżdżonych, dodajmy tabelę students (studenci) i tabelę classes (przedmioty/klasy).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Tabela Przedmiotów (Classes)</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> classes (</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    class_id serial <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    class_name <span class="dt">varchar</span>(<span class="dv">100</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    teacher_id bigint <span class="kw">REFERENCES</span> teachers(<span class="kw">id</span>), <span class="co">-- Klucz obcy do tabeli teachers</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    grade_level <span class="dt">varchar</span>(<span class="dv">10</span>)</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>);</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">-- Przykładowe dane do classes</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> classes (class_name, teacher_id, grade_level) <span class="kw">VALUES</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>(<span class="st">'Mathematics 101'</span>, <span class="dv">2</span>, <span class="st">'10th'</span>),</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>(<span class="st">'English Literature'</span>, <span class="dv">1</span>, <span class="st">'9th'</span>),</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>(<span class="st">'World History'</span>, <span class="dv">3</span>, <span class="st">'11th'</span>);</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co">-- Tabela Studentów (Students)</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> students (</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    student_id bigserial <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    first_name <span class="dt">varchar</span>(<span class="dv">25</span>),</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    last_name <span class="dt">varchar</span>(<span class="dv">50</span>),</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>    enrollment_date <span class="dt">date</span>,</span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    class_id bigint <span class="kw">REFERENCES</span> classes(class_id) <span class="co">-- Klucz obcy do tabeli classes</span></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>);</span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="co">-- Przykładowe dane do students</span></span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> students (first_name, last_name, enrollment_date, class_id) <span class="kw">VALUES</span></span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>(<span class="st">'Anna'</span>, <span class="st">'Kowalska'</span>, <span class="st">'2023-09-01'</span>, <span class="dv">1</span>),</span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>(<span class="st">'Piotr'</span>, <span class="st">'Nowak'</span>, <span class="st">'2023-09-01'</span>, <span class="dv">1</span>),</span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>(<span class="st">'Ewa'</span>, <span class="st">'Wiśniewska'</span>, <span class="st">'2023-09-01'</span>, <span class="dv">2</span>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Tabela Przedmiotów (Classes)</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> classes (</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    class_id serial <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    class_name <span class="dt">varchar</span>(<span class="dv">100</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    teacher_id bigint <span class="kw">REFERENCES</span> teachers(<span class="kw">id</span>), <span class="co">-- Klucz obcy do tabeli teachers</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    grade_level <span class="dt">varchar</span>(<span class="dv">10</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">-- Przykładowe dane do classes</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> classes (class_name, teacher_id, grade_level) <span class="kw">VALUES</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>(<span class="st">'Mathematics 101'</span>, <span class="dv">2</span>, <span class="st">'10th'</span>),</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>(<span class="st">'English Literature'</span>, <span class="dv">1</span>, <span class="st">'9th'</span>),</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>(<span class="st">'World History'</span>, <span class="dv">3</span>, <span class="st">'11th'</span>);</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co">-- Tabela Studentów (Students)</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> students (</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    student_id bigserial <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    first_name <span class="dt">varchar</span>(<span class="dv">25</span>),</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    last_name <span class="dt">varchar</span>(<span class="dv">50</span>),</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    enrollment_date <span class="dt">date</span>,</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    class_id bigint <span class="kw">REFERENCES</span> classes(class_id) <span class="co">-- Klucz obcy do tabeli classes</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="co">-- Przykładowe dane do students</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> students (first_name, last_name, enrollment_date, class_id) <span class="kw">VALUES</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>(<span class="st">'Anna'</span>, <span class="st">'Kowalska'</span>, <span class="st">'2023-09-01'</span>, <span class="dv">1</span>),</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>(<span class="st">'Piotr'</span>, <span class="st">'Nowak'</span>, <span class="st">'2023-09-01'</span>, <span class="dv">1</span>),</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>(<span class="st">'Ewa'</span>, <span class="st">'Wiśniewska'</span>, <span class="st">'2023-09-01'</span>, <span class="dv">2</span>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="zapytania-w-zapytaniach-subqueries" class="level3">
-<h3 class="anchored" data-anchor-id="zapytania-w-zapytaniach-subqueries">Zapytania w Zapytaniach (Subqueries)</h3>
+<h3 class="anchored" data-anchor-id="zapytania-w-zapytaniach-subqueries">Zapytania w zapytaniach (Subqueries)</h3>
 <p>Zapytanie wewnętrzne (subquery) jest wykonywane jako pierwsze i zwraca wynik, który jest używany przez zapytanie zewnętrzne.</p>
 <blockquote class="blockquote">
 <p>Znalezienie nauczycieli z najwyższą pensją:</p>
 </blockquote>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> first_name, last_name <span class="kw">FROM</span> teachers <span class="kw">WHERE</span> salary <span class="op">=</span> (<span class="kw">SELECT</span> <span class="fu">MAX</span>(salary) <span class="kw">FROM</span> teachers);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> first_name, last_name <span class="kw">FROM</span> teachers <span class="kw">WHERE</span> salary <span class="op">=</span> (<span class="kw">SELECT</span> <span class="fu">MAX</span>(salary) <span class="kw">FROM</span> teachers);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <blockquote class="blockquote">
 <p>Znalezienie nauczycieli, którzy prowadzą klasy dla ‘10th’ grade:,</p>
 </blockquote>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> first_name, last_name <span class="kw">FROM</span> teachers <span class="kw">WHERE</span> <span class="kw">id</span> <span class="kw">IN</span> (<span class="kw">SELECT</span> teacher_id <span class="kw">FROM</span> classes <span class="kw">WHERE</span> grade_level <span class="op">=</span> <span class="st">'10th'</span>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> first_name, last_name <span class="kw">FROM</span> teachers <span class="kw">WHERE</span> <span class="kw">id</span> <span class="kw">IN</span> (<span class="kw">SELECT</span> teacher_id <span class="kw">FROM</span> classes <span class="kw">WHERE</span> grade_level <span class="op">=</span> <span class="st">'10th'</span>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <blockquote class="blockquote">
 <p>Wyświetlenie studentów, których nauczyciel ma pensję powyżej średniej:</p>
 </blockquote>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> s.first_name, s.last_name <span class="kw">FROM</span> students s <span class="kw">JOIN</span> classes c <span class="kw">ON</span> s.class_id <span class="op">=</span> c.class_id <span class="kw">JOIN</span> teachers t <span class="kw">ON</span> c.teacher_id <span class="op">=</span> t.<span class="kw">id</span> <span class="kw">WHERE</span> t.salary <span class="op">&gt;</span> (<span class="kw">SELECT</span> <span class="fu">AVG</span>(salary) <span class="kw">FROM</span> teachers);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> s.first_name, s.last_name <span class="kw">FROM</span> students s <span class="kw">JOIN</span> classes c <span class="kw">ON</span> s.class_id <span class="op">=</span> c.class_id <span class="kw">JOIN</span> teachers t <span class="kw">ON</span> c.teacher_id <span class="op">=</span> t.<span class="kw">id</span> <span class="kw">WHERE</span> t.salary <span class="op">&gt;</span> (<span class="kw">SELECT</span> <span class="fu">AVG</span>(salary) <span class="kw">FROM</span> teachers);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="indeksowanie-w-postgresql" class="level2">
@@ -447,8 +455,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="tworzenie-indeksu" class="level3">
 <h3 class="anchored" data-anchor-id="tworzenie-indeksu">Tworzenie Indeksu</h3>
 <p>Zaleca się tworzenie indeksów na kolumnach często używanych w klauzulach WHERE, JOIN i ORDER BY.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Tworzenie indeksu na kolumnie school w tabeli teachers</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_teachers_school <span class="kw">ON</span> teachers (school);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Tworzenie indeksu na kolumnie school w tabeli teachers</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_teachers_school <span class="kw">ON</span> teachers (school);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="weryfikacja-działania-indeksu-explain-analyze" class="level3">
 <h3 class="anchored" data-anchor-id="weryfikacja-działania-indeksu-explain-analyze">Weryfikacja Działania Indeksu (EXPLAIN ANALYZE)</h3>
@@ -456,7 +464,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p>Weryfikacja przyspieszenia po indeksowaniu:</p>
 </blockquote>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">EXPLAIN</span> <span class="kw">ANALYZE</span> <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> teachers <span class="kw">WHERE</span> school <span class="op">=</span> <span class="st">'Myers Middle School'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">EXPLAIN</span> <span class="kw">ANALYZE</span> <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> teachers <span class="kw">WHERE</span> school <span class="op">=</span> <span class="st">'Myers Middle School'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Analiza zapytania bez użycia indeksu:,</p>
 <p>“Po wykonaniu EXPLAIN ANALYZE, poszukaj w wynikach fraz takich jak”“Index Scan”” (indeks został użyty) lub ““Seq Scan”” (skan sekwencyjny/całej tabeli - indeks nie został użyty).”</p>
 <blockquote class="blockquote">
@@ -470,18 +478,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="przeglądanie-metadanych-katalog-systemowy" class="level3">
 <h3 class="anchored" data-anchor-id="przeglądanie-metadanych-katalog-systemowy">Przeglądanie Metadanych (Katalog Systemowy)</h3>
 <p>Lista wszystkich tabel w bieżącym schemacie:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> table_name <span class="kw">FROM</span> information_schema.<span class="kw">tables</span> <span class="kw">WHERE</span> table_schema <span class="op">=</span> <span class="st">'public'</span> <span class="kw">ORDER</span> <span class="kw">BY</span> table_name;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> table_name <span class="kw">FROM</span> information_schema.<span class="kw">tables</span> <span class="kw">WHERE</span> table_schema <span class="op">=</span> <span class="st">'public'</span> <span class="kw">ORDER</span> <span class="kw">BY</span> table_name;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>Szczegóły kolumn w tabeli teachers:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> column_name, data_type, is_nullable <span class="kw">FROM</span> information_schema.<span class="kw">columns</span> <span class="kw">WHERE</span> table_name <span class="op">=</span> <span class="st">'teachers'</span> <span class="kw">AND</span> table_schema <span class="op">=</span> <span class="st">'public'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> column_name, data_type, is_nullable <span class="kw">FROM</span> information_schema.<span class="kw">columns</span> <span class="kw">WHERE</span> table_name <span class="op">=</span> <span class="st">'teachers'</span> <span class="kw">AND</span> table_schema <span class="op">=</span> <span class="st">'public'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="monitorowanie-wydajności" class="level3">
 <h3 class="anchored" data-anchor-id="monitorowanie-wydajności">Monitorowanie Wydajności</h3>
 <p>Aktualnie uruchomione zapytania (sesje) i ich stan:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> pid, usename, datname, <span class="kw">query</span>, state <span class="kw">FROM</span> pg_stat_activity <span class="kw">WHERE</span> datname <span class="op">=</span> current_database();</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> pid, usename, datname, <span class="kw">query</span>, state <span class="kw">FROM</span> pg_stat_activity <span class="kw">WHERE</span> datname <span class="op">=</span> current_database();</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Statystyki użycia indeksów (czy indeksy są używane):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> relname, indexrelname, idx_scan, idx_tup_read, idx_tup_fetch <span class="kw">FROM</span> pg_stat_user_indexes <span class="kw">WHERE</span> relname <span class="op">=</span> <span class="st">'teachers'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> relname, indexrelname, idx_scan, idx_tup_read, idx_tup_fetch <span class="kw">FROM</span> pg_stat_user_indexes <span class="kw">WHERE</span> relname <span class="op">=</span> <span class="st">'teachers'</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>idx_scan: Liczba skanowań indeksu (im wyższa, tym lepiej, bo znaczy, że indeks jest używany).</li>
 </ul>
